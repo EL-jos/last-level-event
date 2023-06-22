@@ -97,7 +97,7 @@
     form p,
     .el-contentainer main.el-descriptif{
         line-height: var(--line-height-text);
-    }#el-header-page .el-open-menu-phone .el-btn{
+    }#el-header-page .el-open-menu-phone{
         display: none;
     }#el-header-page .el-checkout{
         margin: 0;
