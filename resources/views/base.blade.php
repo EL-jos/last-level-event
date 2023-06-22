@@ -32,8 +32,7 @@
                 </button>
             </li>
             <li class="el-logo">
-                <!-- <img src="https://api.lorem.space/image/logo?w=150&h=220" alt="logo"> -->
-                <div></div>
+                <a href=""> Last Level Event </a>
             </li>
             <li class="el-menu-desktop">
                 <nav>
