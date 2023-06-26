@@ -49,7 +49,17 @@
     color: #fff;
     font-weight: 600;
     transition: var(--transition);
-}.el-menu-desktop a:hover{
+}.el-logo a{
+     font-size: calc(var(--font-size-text) * 1.3);
+     font-family: var(--font-text) !important;
+     text-decoration: none;
+     color: var(--violet);
+     font-weight: 600;
+     transition: var(--transition);
+     background-image: linear-gradient(135deg, var(--violet), var(--blue));
+     -webkit-background-clip: text; /* Pour la compatibilité avec certains navigateurs */
+     -webkit-text-fill-color: transparent; /* Pour la compatibilité avec certains navigateurs */
+ }.el-menu-desktop a:hover{
     color: var(--violet);
 }.el-menu-desktop{
     display: none;
@@ -395,11 +405,11 @@
     color: #1a1a1a;
     font-size: calc(var(--font-size-text) * 1.2);
     font-weight: 600;
-}.ui-state-active, 
-.ui-widget-content .ui-state-active, 
-.ui-widget-header .ui-state-active, 
-a.ui-button:active, 
-.ui-button:active, 
+}.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active,
+a.ui-button:active,
+.ui-button:active,
 .ui-button.ui-state-active:hover{
     background: var(--blue);
     border-color: var(--blue);

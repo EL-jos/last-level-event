@@ -22,7 +22,6 @@
                             <thead>
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nom</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Rubrique</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Modification</th>
                                 <th class="text-secondary opacity-7"></th>
@@ -33,9 +32,6 @@
                                     <tr>
                                         <td>
                                             <h6 class="mb-0 text-sm">{{ $category->name }}</h6>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold">{{ $category->rubric->name }}</span>
                                         </td>
                                         <td class="align-middle text-center text-sm">
                                             <span class="badge badge-sm bg-gradient-success">{{ $category->delete_at == null ? 'OnLine' : 'OnffLine' }}</span>

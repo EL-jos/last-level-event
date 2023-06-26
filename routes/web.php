@@ -22,6 +22,6 @@ Route::get('/confidentialite', ['as' => 'confidentialite.page', 'uses' => 'App\\
 Route::get('/register', ['as' => 'register.page', 'uses' => 'App\\Http\\Controllers\\PageController@register']);
 Route::get('/login', ['as' => 'login.page', 'uses' => 'App\\Http\\Controllers\\PageController@login']);
 
-/*Route::prefix('admin')->group(function(){
-    Route::get('/', ['as' => 'admin.home', 'uses' => ''])
-});*/
+Route::prefix('admin')->group(function(){
+    Route::resource('category', 'App\\Http\\Controllers\\CategoryController')->except(['show']);
+});

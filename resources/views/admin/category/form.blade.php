@@ -18,14 +18,14 @@
                             <input type="text" class="form-control" name="name" value="{{ $category->name }}" />
                         </div>
 
-                        <div class="mb-3 input-group input-group-outline">
+                        {{--<div class="mb-3 input-group input-group-outline">
                             <select class="form-select" aria-label="Default select example" name="rubric_id">
                                 <option selected disabled>Open this select menu</option>
                                 @foreach($rubrics as $rubric)
                                     <option value="{{ $rubric->id }}">{{ $rubric->name }}</option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div>--}}
 
                         {{--<div class="mb-3 input-group input-group-outline">
                             <label>Description</label>

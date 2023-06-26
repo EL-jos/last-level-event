@@ -12,7 +12,7 @@
     <hr class="horizontal light mt-0 mb-2">
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
         <ul class="navbar-nav">
-            <li class="nav-item">
+            {{--<li class="nav-item">
                 <a @class(['nav-link text-white', 'active bg-gradient-primary' => str_contains($route, 'admin.home')]) href="{{ route('category.index') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">dashboard</i>
@@ -27,7 +27,7 @@
                     </div>
                     <span class="nav-link-text ms-1">Articles</span>
                 </a>
-            </li>
+            </li>--}}
             <li class="nav-item">
                 <a @class(['nav-link text-white', 'active bg-gradient-primary' => str_contains($route, 'category.')]) href="{{ route('category.index') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -36,14 +36,14 @@
                     <span class="nav-link-text ms-1">Categories</span>
                 </a>
             </li>
-            <li class="nav-item">
+            {{--<li class="nav-item">
                 <a @class(['nav-link text-white', 'active bg-gradient-primary' => str_contains($route, 'rubric.')]) href="{{ route('rubric.index') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">receipt_long</i>
                     </div>
                     <span class="nav-link-text ms-1">Rubriques</span>
                 </a>
-            </li>
+            </li>--}}
             {{--<li class="nav-item">
                 <a class="nav-link text-white " href="virtual-reality.html">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">

@@ -11,7 +11,14 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+mix.styles('resources/css/element.css', 'public/css/element.css')
+    .styles('resources/css/owl_carousel.css', 'public/css/owl_carousel.css')
+    .styles('resources/css/style.css', 'public/css/style.css')
+    .styles('resources/css/responsive.css', 'public/css/responsive.css');
+
+mix.js('resources/js/myapp.js', 'public/js/myapp.js')
+    .js('resources/js/particles.min.js', 'public/js/particles.min.js')
+    .js('resources/js/sliders.js', 'public/js/sliders.js');
+
+mix.copyDirectory('resources/fonts/', 'public/fonts/')
+    .copyDirectory('resources/assets/', 'public/assets/');

@@ -42,7 +42,6 @@
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    justify-content: space-around;
 }.el-menu-desktop a{
     font-size: calc(var(--font-size-text) * 1);
     font-family: var(--font-text) !important;
@@ -57,9 +56,9 @@
      color: var(--violet);
      font-weight: 600;
      transition: var(--transition);
-    background-image: linear-gradient(135deg, var(--violet), var(--blue));
-   -webkit-background-clip: text; /* Pour la compatibilité avec certains navigateurs */
-   -webkit-text-fill-color: transparent; /* Pour la compatibilité avec certains navigateurs */
+     background-image: linear-gradient(135deg, var(--violet), var(--blue));
+     -webkit-background-clip: text; /* Pour la compatibilité avec certains navigateurs */
+     -webkit-text-fill-color: transparent; /* Pour la compatibilité avec certains navigateurs */
  }.el-menu-desktop a:hover{
     color: var(--violet);
 }.el-menu-desktop{
