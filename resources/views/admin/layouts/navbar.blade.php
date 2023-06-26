@@ -36,14 +36,14 @@
                     <span class="nav-link-text ms-1">Categories</span>
                 </a>
             </li>
-            {{--<li class="nav-item">
-                <a @class(['nav-link text-white', 'active bg-gradient-primary' => str_contains($route, 'rubric.')]) href="{{ route('rubric.index') }}">
+            <li class="nav-item">
+                <a @class(['nav-link text-white', 'active bg-gradient-primary' => str_contains($route, 'organiser.')]) href="{{ route('organiser.index') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">receipt_long</i>
                     </div>
-                    <span class="nav-link-text ms-1">Rubriques</span>
+                    <span class="nav-link-text ms-1">Organisateurs</span>
                 </a>
-            </li>--}}
+            </li>
             {{--<li class="nav-item">
                 <a class="nav-link text-white " href="virtual-reality.html">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
