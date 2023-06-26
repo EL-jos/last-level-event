@@ -11,4 +11,8 @@ class Category extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = ['name', 'created_at', 'updated_at', 'deleted_at'];
+
+    public function events(){
+        return $this->belongsToMany(Event::class);
+    }
 }

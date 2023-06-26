@@ -12,4 +12,8 @@ class Organiser extends Model
 
     public $incrementing = false;
     protected $fillable = ['id', 'name', 'email', 'phone', 'address', 'created_at', 'updated_at', 'deleted_at'];
+
+    public function events(){
+        return $this->hasMany(Event::class);
+    }
 }

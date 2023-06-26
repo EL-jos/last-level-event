@@ -25,4 +25,5 @@ Route::get('/login', ['as' => 'login.page', 'uses' => 'App\\Http\\Controllers\\P
 Route::prefix('admin')->group(function(){
     Route::resource('category', 'App\\Http\\Controllers\\CategoryController')->except(['show']);
     Route::resource('organiser', 'App\\Http\\Controllers\\OrganiserController')->except(['show']);
+    Route::resource('event', 'App\\Http\\Controllers\\EventController')->except(['show']);
 });
