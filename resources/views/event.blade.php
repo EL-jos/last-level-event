@@ -57,12 +57,12 @@
                             </div>
                         </div>
                         <div class="el-controls-btn">
-                            <a href="" class="el-btn el-vip">
-                                Acheter le ticket VIP
-                            </a>
-                            <a href="" class="el-btn">
+                            <button onclick="onOpenFormAchatTicket()" class="el-btn el-vip">
+                                Acheter le ticket !
+                            </button>
+                            {{--<a href="" class="el-btn">
                                 Acheter le ticket Standard
-                            </a>
+                            </a>--}}
                         </div>
                     </main>
                 </div>
@@ -81,7 +81,8 @@
         <div class="el-content-area">
             <aside>
                 <form>
-                    <h2>S'inscrire à Last Level Event</h2>
+                    <button onclick="onCloseFormAchatTicket()" type="button" id="el-close-form-ticket" class="el-btn el-center-box"> <i class="fas fa-times"></i> </button>
+                    <h2>Achat ticket Last Level Event</h2>
                     <div class="el-ligne">
                         <div class="el-colonne el-one">
                             <label for="type_id">Type d'achat</label>
@@ -91,7 +92,20 @@
                             </select>
                         </div>
                     </div>
-                    <button class="el-btn">Acheter</button>
+                    <div class="el-type-payment">
+                        <p id="el-price-standard" class="el-price el-active">Prix: <strong>5 $</strong></p>
+                        <p id="el-price-vip" class="el-price">Prix: <strong>50 $</strong></p>
+                        <p class="el-phone"><img src="{{ asset('assets/svg/mpsa.svg') }}" /> +243 812 135 885</p>
+                        <p class="el-phone"><img src="{{ asset('assets/svg/orange_money.svg') }}" /> +243 812 135 885</p>
+                        <p class="el-phone"><img src="{{ asset('assets/svg/airtel.svg') }}" /> +243 812 135 885</p>
+                    </div>
+                    <div class="el-ligne">
+                        <div class="el-colonne el-one">
+                            <label for="type_id">Référence de la transaction</label>
+                            <input type="text" />
+                        </div>
+                    </div>
+                    <button type="submit" class="el-btn">Acheter</button>
                 </form>
             </aside>
         </div>
@@ -177,5 +191,29 @@
             });
 
         });
+    </script>
+    <script>
+        const onOpenFormAchatTicket = () => {
+            document.getElementById('el-popup').classList.add('el-active')
+        }
+        const onCloseFormAchatTicket = () => {
+            document.querySelector('#el-popup form').reset();
+            document.getElementById('el-popup').classList.remove('el-active');
+        }
+        const el_price_standard = document.getElementById('el-price-standard');
+        const el_price_vip = document.getElementById('el-price-vip');
+        const type_id = document.getElementById('type_id');
+        type_id.addEventListener('change', (e) => {
+            switch (parseInt(e.target.value)) {
+                case 1:
+                    el_price_standard.classList.add('el-active')
+                    el_price_vip.classList.remove('el-active')
+                    break;
+                case 2:
+                    el_price_standard.classList.remove('el-active')
+                    el_price_vip.classList.add('el-active')
+                    break;
+            }
+        })
     </script>
 @endsection
