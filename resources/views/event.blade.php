@@ -103,7 +103,8 @@
     <section id="el-popup" class="el-center-box">
         <div class="el-content-area">
             <aside>
-                <form>
+                <form method="post" action="{{ route('sale.store') }}">
+                    @csrf
                     <button onclick="onCloseFormAchatTicket()" type="button" id="el-close-form-ticket" class="el-btn el-center-box"> <i class="fas fa-times"></i> </button>
                     <h2>Achat ticket Last Level Event</h2>
                     <div class="el-ligne">
@@ -126,7 +127,7 @@
                     <div class="el-ligne">
                         <div class="el-colonne el-one">
                             <label for="type_id">Référence de la transaction</label>
-                            <input type="text" />
+                            <input type="text" name="ref" />
                         </div>
                     </div>
                     <button type="submit" class="el-btn">Acheter</button>

@@ -542,7 +542,7 @@ form .el-ligne{
       border: 1px solid #efefef;
       background-color: #f9f9f9;
       font-weight: 400;
-      color: var(--colorText);
+      color: #68686d;
       padding: 0 1rem;
       font-family: var(--font-text) !important;
       font-size: calc(var(--font-size-text) * 1.1);

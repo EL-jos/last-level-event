@@ -10,39 +10,51 @@
 @section('main')
     <section id="el-register" class="el-center-box">
         <div class="el-content-area">
-            <form>
+            <form method="post" action="{{ route('user.store') }}">
+                @csrf
+                {{--@method($event->exists ? 'put' : 'post')--}}
                 <h2>S'inscrire à Last Level Event</h2>
                 <div class="el-ligne">
                     <div class="el-colonne el-one">
                         <label for="username">Username</label>
-                        <input type="text" id="username" />
+                        <input type="text" id="username" name="username" />
                     </div>
 
                 </div>
                 <div class="el-ligne">
                     <div class="el-colonne">
                         <label for="lastname">Prénom</label>
-                        <input type="text" id="lastname" />
+                        <input type="text" id="lastname" name="lastname" />
                     </div>
                     <div class="el-colonne">
                         <label for="name">Nom</label>
-                        <input type="text" id="name" />
+                        <input type="text" id="name" name="name" />
                     </div>
                 </div>
-                <div class="el-ligne el-one">
+                <div class="el-ligne">
                     <div class="el-colonne">
                         <label for="email">E-mail</label>
-                        <input type="text" id="email" />
+                        <input type="text" id="email" name="email" />
+                    </div>
+                    <div class="el-colonne">
+                        <label for="phone">Téléphone</label>
+                        <input type="text" id="phone" name="phone" />
+                    </div>
+                </div>
+                <div class="el-ligne">
+                    <div class="el-colonne el-one">
+                        <label for="address">Adresse</label>
+                        <input type="text" id="address" name="address" />
                     </div>
                 </div>
                 <div class="el-ligne">
                     <div class="el-colonne">
                         <label for="mdp">Mot de passe</label>
-                        <input type="text" id="mdp" />
+                        <input type="password" id="mdp" name="mdp" />
                     </div>
                     <div class="el-colonne">
                         <label for="confirm">Confirmer le mot de passe</label>
-                        <input type="text" id="confirm" />
+                        <input type="password" id="confirm" name="confirm" />
                     </div>
                 </div>
                 <button class="el-btn">S'inscrire</button>
