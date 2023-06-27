@@ -77,6 +77,25 @@
             </div>
         </div>
     </section>
+    <section id="el-popup" class="el-center-box">
+        <div class="el-content-area">
+            <aside>
+                <form>
+                    <h2>S'inscrire à Last Level Event</h2>
+                    <div class="el-ligne">
+                        <div class="el-colonne el-one">
+                            <label for="type_id">Type d'achat</label>
+                            <select id="type_id" name="type_id">
+                                <option value="1">Standard</option>
+                                <option value="2">VIP</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="el-btn">Acheter</button>
+                </form>
+            </aside>
+        </div>
+    </section>
 @endsection
 
 @section('scripts')

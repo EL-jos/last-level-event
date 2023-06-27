@@ -113,7 +113,7 @@ table {
     justify-content: center;
     align-items: center;
 }
-  
+
 .el-img {
     position: absolute;
     top: 0;
@@ -193,9 +193,9 @@ body{
     background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0) 100%);
     transition: var(--transition);
 }.el-card:hover::after{
-    background: linear-gradient(to top, 
-    rgba(0, 0, 0, .8) 0%, 
-    rgba(0, 0, 0, .5) 30%, 
+    background: linear-gradient(to top,
+    rgba(0, 0, 0, .8) 0%,
+    rgba(0, 0, 0, .5) 30%,
     rgba(0, 0, 0, .2) 100%);
 } */.el-card .el-box-img{
     position: relative;
@@ -282,12 +282,12 @@ body{
 .el-hide { /* You can play with the seconds to change the "animation" */
     display: none;
   }
-  
+
   .el-show { /* You can play with the seconds to change the "animation" */
     animation: show 0.3s ease 0s 1 normal forwards;
     transform-origin: center;
   }
-  
+
   @keyframes hide {
     0% {
       transform: scale(1);
@@ -368,7 +368,7 @@ body{
 .el-sponsor{
     border: 1px solid #444675;
     /* flex: 0 0 50%;
-    max-width: 50%; 
+    max-width: 50%;
     width: 50%;*/
     width: 100%;
     aspect-ratio: 6 / 4;
@@ -457,7 +457,8 @@ footer .el-reseaux-sociaux{
     font-family: var(--font-text) !important;
 }
 
-#el-container-menu-phone{
+#el-container-menu-phone,
+#el-popup{
     background-color: rgba(0, 0, 0, .5);
     backdrop-filter: blur(3px);
     position: fixed;
@@ -467,7 +468,8 @@ footer .el-reseaux-sociaux{
     height: 100%;
     z-index: 10;
     transition: var(--transition);
-}#el-container-menu-phone.el-active{
+}#el-container-menu-phone.el-active,
+ #el-popup.el-active{
     left: 0;
 }#el-container-menu-phone .el-content-area{
     display: flex;
@@ -531,7 +533,8 @@ form .el-ligne{
     flex-direction: column;
     gap: .5rem;
     width: 100%;
-}form input{
+}form input,
+  form select{
     display: block;
     min-height: 40px;
     width: 100%;
@@ -602,4 +605,7 @@ form h2{
 }#el-register .el-content-area{
     width: 100%;
     padding: 1rem;
+}
+#el-popup{
+    left: 0;
 }
