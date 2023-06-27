@@ -7,13 +7,13 @@
         </div>
     @endif
 
-    <a class="btn btn-primary" href="{{ route('event.create') }}" role="button">Ajouter</a>
+    <a class="btn btn-primary" href="{{ route('type.create') }}" role="button">Ajouter</a>
     <div class="row">
         <div class="col-12">
             <div class="card my-4">
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                     <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                        <h6 class="text-white text-capitalize ps-3">List de toutes les events</h6>
+                        <h6 class="text-white text-capitalize ps-3">List de toutes les types</h6>
                     </div>
                 </div>
                 <div class="card-body px-0 pb-2">
@@ -21,69 +21,30 @@
                         <table class="table align-items-center mb-0">
                             <thead>
                             <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Image</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Titre</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prix</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date et Heure</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Durée</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Lieu</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Categorie</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Organisateur</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Statut</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nom</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Modification</th>
                                 <th class="text-secondary opacity-7"></th>
                             </tr>
                             </thead>
                             <tbody>
-                                @foreach($events as $event)
+                                @foreach($types as $type)
                                     <tr>
                                         <td>
-                                            <img src="{{ asset($event->image->path_miniature) }}" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
-                                        </td>
-                                        <td>
-                                            <h6 class="mb-0 text-sm">{{ $event->title }}</h6>
+                                            <h6 class="mb-0 text-sm">{{ $type->name }}</h6>
                                         </td>
                                         <td class="align-middle text-center text-sm">
-                                            <div class="d-flex gap-1 flex-column">
-                                                @foreach($event->prices as $price)
-                                                    <div class="d-flex gap-1">
-                                                        <span class="text-secondary text-xs font-weight-bold">{{ $price->amount }} $</span>
-                                                        <p class="text-xs text-secondary mb-0 text-success">{{ $price->type->name }}</p>
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <span class="text-secondary text-xs font-weight-bold">Le {{ date('d/m/Y', strtotime($event->date)) . ' à ' . date('H:i', strtotime($event->time)) }}</span>
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <span class="text-secondary text-xs font-weight-bold">{{ $event->duration }} H</span>
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <span class="text-secondary text-xs font-weight-bold">{{ $event->location }}</span>
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <div class="d-flex gap-1">
-                                                @foreach($event->categories as $category)
-                                                    <span class="badge badge-sm bg-gradient-success">{{ $category->name }}</span>
-                                                @endforeach
-                                            </div>
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <span class="badge badge-sm bg-gradient-info">{{ $event->organiser->name }}</span>
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <span class="badge badge-sm bg-gradient-success">{{ $event->delete_at == null ? 'OnLine' : 'OnffLine' }}</span>
+                                            <span class="badge badge-sm bg-gradient-success">{{ $type->delete_at == null ? 'OnLine' : 'OnffLine' }}</span>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold">{{ date('d/m/Y à H:m:s', strtotime($event->updated_at)) }}</span>
+                                            <span class="text-secondary text-xs font-weight-bold">{{ date('d/m/Y à H:m:s', strtotime($type->updated_at)) }}</span>
                                         </td>
                                         <td class="align-middle">
                                             <div class="d-flex gap-2 w-100 justify-content-end">
-                                                <a href="{{route('event.edit', $event)}}" class="btn btn-primary" data-toggle="tooltip" data-original-title="Edit user">
+                                                <a href="{{route('type.edit', $type)}}" class="btn btn-primary" data-toggle="tooltip" data-original-title="Edit user">
                                                     Editer
                                                 </a>
-                                                <form action="{{ route('event.destroy', $event) }}" method="post">
+                                                <form action="{{ route('type.destroy', $type) }}" method="post">
                                                     @csrf
                                                     @method('delete')
 

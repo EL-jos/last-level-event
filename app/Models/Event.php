@@ -21,4 +21,11 @@ class Event extends Model
     public function organiser(){
         return $this->belongsTo(Organiser::class);
     }
+
+    public  function image(){
+        return $this->hasOne(Image::class);
+    }
+    public function prices(){
+        return $this->belongsToMany(Price::class);
+    }
 }

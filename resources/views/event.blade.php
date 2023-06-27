@@ -1,5 +1,12 @@
 @extends('base')
+@php
 
+    $lenght = $event->categories->count();
+    $dateString = date('d/m/Y', strtotime($event->date));
+    $timeString = date('H:i', strtotime($event->time));
+    /*$date = Carbon::createFromFormat('d/m/Y', $dateString);
+    $formattedDate = $date->isoFormat('dddd D, MMM. YYYY, HH:mm');*/
+@endphp
 @section('style')
     <!-- FLIPDOWN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flipdown@0.3.2/dist/flipdown.min.css">
@@ -7,22 +14,36 @@
 @endsection
 
 @section('main')
+
     <section id="el-breadcrumb" class="el-center-box">
         <div class="el-content-area">
             <div class="el-grid">
                 <a href="{{ route('home.page') }}">Accueil /</a>
-                <a href="{{ route('category.page') }}">Categorie /</a>
-                <span>Titre de l'événement</span>
+                @foreach($event->categories as $category)
+
+                    @if($lenght > 1)
+                        @if($loop->index == ($lenght - 1))
+                            <a href="{{ route('category.page', $category) }}">{{$category->name}} /</a>
+                        @else
+                            <a href="{{ route('category.page', $category) }}">{{$category->name}} | |</a>
+                        @endif
+                    @else
+                        <a href="{{ route('category.page', $category) }}">{{ $category->name }} /</a>
+                    @endif
+
+                @endforeach
+
+                <span>{{ $event->title }}</span>
             </div>
         </div>
     </section>
     <section id="el-details-event" class="el-center-box">
         <div class="el-content-area">
             <div class="el-grid">
-                <h1 class="el-title-event">Zouhair Zair – Zouhero CASABLANCA</h1>
-                <p class="el-price"><i class="fas fa-money-bill-alt"></i> à partir de <span>190 MAD</span></p>
+                <h1 class="el-title-event">{{ $event->title }}</h1>
+                <p class="el-price"><i class="fas fa-money-bill-alt"></i> à partir de <span>{{ $event->prices()->where('type_id', '=', 1)->first()->amount }} $</span></p>
 
-                <img src="{{ asset('assets/img/events/5.jpg') }}" alt="">
+                <img src="{{ asset($event->image->path_large) }}" alt="{{ $event->title }}">
                 <div class="el-contentainer">
                     <header>Détails de l’évènement</header>
                     <main>
@@ -35,7 +56,7 @@
                             </div>
                             <div class="el-group-title">
                                 <h4 class="el-subtitle">Organisé par</h4>
-                                <h3 class="el-title">electronic events</h3>
+                                <h3 class="el-title">{{ $event->organiser->name }}</h3>
                             </div>
                         </div>
                         <div class="el-event-right">
@@ -44,7 +65,11 @@
                             </div>
                             <div class="el-group-title">
                                 <h4 class="el-subtitle">Date et heure</h4>
-                                <h3 class="el-title">Mardi 26, avr. 2022, 20:00</h3>
+                                {{--date('d/m/Y', strtotime($event->date))--}}
+                                <h3 class="el-title">
+                                    {{ \Carbon\Carbon::createFromFormat('d/m/Y', $dateString)->locale('fr')->isoFormat('dddd D, MMM. YYYY') }} à
+                                    {{ $timeString }}
+                                </h3>
                             </div>
                         </div>
                         <div class="el-event-right">
@@ -53,7 +78,7 @@
                             </div>
                             <div class="el-group-title">
                                 <h4 class="el-subtitle">Localisation</h4>
-                                <h3 class="el-title">Megarama, Casablanca</h3>
+                                <h3 class="el-title">{{ $event->location }}</h3>
                             </div>
                         </div>
                         <div class="el-controls-btn">
@@ -69,9 +94,7 @@
                 <div class="el-contentainer">
                     <header>À propos de cet évènement</header>
                     <main class="el-descriptif">
-                        <p>
-                            Le natif du quartier Hay Hassani, HH comme bon semble aux intimes l’appeler, le hero de toute une préfecture, joue une heure trente de spectacle en transportant les spectateurs vers les univers de son enfance au quartier connu par le grand commissariat Dar Al Hamra, le fameux Souk Weld Mina, certes un quartier populaire mais qui a toujours rendu fière ses fils, puis son passage au milieux du show bizz et de la scène, une narration mélancolique qui allie rire, émotion et nostalgie
-                        </p>
+                        {!! $event->description !!}
                     </main>
                 </div>
             </div>
@@ -87,14 +110,15 @@
                         <div class="el-colonne el-one">
                             <label for="type_id">Type d'achat</label>
                             <select id="type_id" name="type_id">
-                                <option value="1">Standard</option>
-                                <option value="2">VIP</option>
+                                @foreach($types as $type)
+                                    <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="el-type-payment">
-                        <p id="el-price-standard" class="el-price el-active">Prix: <strong>5 $</strong></p>
-                        <p id="el-price-vip" class="el-price">Prix: <strong>50 $</strong></p>
+                        <p id="el-price-standard" class="el-price el-active">Prix: <strong>{{ $event->prices()->where('type_id', '=', 1)->first()->amount }} $</strong></p>
+                        <p id="el-price-vip" class="el-price">Prix: <strong>{{ $event->prices()->where('type_id', '=', 2)->first()->amount }} $</strong></p>
                         <p class="el-phone"><img src="{{ asset('assets/svg/mpsa.svg') }}" /> +243 812 135 885</p>
                         <p class="el-phone"><img src="{{ asset('assets/svg/orange_money.svg') }}" /> +243 812 135 885</p>
                         <p class="el-phone"><img src="{{ asset('assets/svg/airtel.svg') }}" /> +243 812 135 885</p>
@@ -114,9 +138,16 @@
 
 @section('scripts')
     @parent
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script>
+        var dateString = '{{ $event->date }}'; // Votre date au format 'd/m/Y'
+        var momentDate = moment(dateString, 'DD/MM/YYYY');
+        var timestampMilliseconds = moment(dateString).unix();
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            let timer = 1702827520;
+
+            let timer = timestampMilliseconds;
             let flipdown = new FlipDown(timer,
                 {
                     headings: ["Jour", "Heure", "minute", "séconde"]
@@ -200,6 +231,7 @@
             document.querySelector('#el-popup form').reset();
             document.getElementById('el-popup').classList.remove('el-active');
         }
+
         const el_price_standard = document.getElementById('el-price-standard');
         const el_price_vip = document.getElementById('el-price-vip');
         const type_id = document.getElementById('type_id');

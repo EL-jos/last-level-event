@@ -13,14 +13,21 @@
                     <form method="post" action="{{ $event->exists ? route('event.update', $event) : route('event.store', $event) }}" enctype="multipart/form-data">
                         @csrf
                         @method($event->exists ? 'put' : 'post')
+                        @if($event->exists)
+                            <input type="hidden" name="event_id" value="{{ $event->id }}" />
+                        @endif
+                        <div class="mb-3 input-group input-group-outline">
+                            <label class="form-label">Title</label>
+                            <input type="text" class="form-control" name="title" value="{{ $event->title }}" />
+                        </div>
                         <div class="d-flex gap-2">
                             <div class="mb-3 input-group input-group-outline">
-                                <label class="form-label">Title</label>
-                                <input type="text" class="form-control" name="title" value="{{ $event->title }}" />
+                                <label class="form-label">Prix Standard</label>
+                                <input type="number" class="form-control" name="price_standard" value="{{ $event->prices()->where('type_id', '=', 1)->first() ? $event->prices()->where('type_id', '=', 1)->first()->amount : null }}" />
                             </div>
                             <div class="mb-3 input-group input-group-outline">
-                                <label class="form-label">Prix</label>
-                                <input type="number" class="form-control" name="price" value="{{ $event->price }}" />
+                                <label class="form-label">Prix V.I.P</label>
+                                <input type="number" class="form-control" name="price_vip" value="{{ $event->prices()->where('type_id', '=', 2)->first() ? $event->prices()->where('type_id', '=', 2)->first()->amount : null }}" />
                             </div>
                         </div>
                         <div class="d-flex gap-2">
@@ -84,7 +91,7 @@
 
                         <div class="mb-3 input-group input-group-outline">
                             <label>Description</label>
-                            <textarea class="ckeditor form-control" id="description" name="description"></textarea>
+                            <textarea class="ckeditor form-control" id="description" name="description"> {{ $event->description }} </textarea>
                         </div>
 
                         <button type="submit" class="btn btn-primary">

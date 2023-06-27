@@ -32,7 +32,7 @@
                 </button>
             </li>
             <li class="el-logo">
-                <a href=""> Last Level Event </a>
+                <a href=" {{ route('home.page') }} "> Last Level Event </a>
             </li>
             <li class="el-menu-desktop">
                 <nav>

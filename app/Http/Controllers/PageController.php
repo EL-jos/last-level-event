@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Event;
+use App\Models\Type;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
     public function home(){
-        return view('home');
+        return view('home', [
+            'events' => Event::all(),
+            'categories' => Category::all()
+        ]);
     }
 
     public function about(){
@@ -36,5 +42,12 @@ class PageController extends Controller
 
     public function login(){
         return view('login');
+    }
+
+    public function details(Event $event){
+        return view('event', [
+            'event' => $event,
+            'types' => Type::all()
+        ]);
     }
 }

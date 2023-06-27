@@ -148,7 +148,7 @@
     .el-menu-desktop a {
         font-size: calc(var(--font-size-text) * .8);
     }#el-details-event main{
-        gap: 2.5rem;
+        gap: 1rem;
     }#el-sliders .el-content-area{
         width: 1140px;
     }.el-counter p,
