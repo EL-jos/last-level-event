@@ -183,14 +183,4 @@
     <script src="{{ asset('js/particles.min.js') }}"></script>
     <script src="{{ asset('js/myapp.js') }}"></script>
     <script src="{{ asset('js/sliders.js') }}"></script>
-
-    @if(session()->has('success'))
-        <script>
-            Swal.fire({
-                icon: 'success',
-                title: 'Valide',
-                text: "{!! session('success') !!}"
-            });
-        </script>
-    @endif
 @endsection

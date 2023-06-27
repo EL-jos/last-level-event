@@ -10,7 +10,7 @@
 @section('main')
     <section id="el-register" class="el-center-box">
         <div class="el-content-area">
-            <form method="post" action="{{ route('user.store') }}">
+            <form method="post" action="{{ route('register.auth') }}">
                 @csrf
                 {{--@method($event->exists ? 'put' : 'post')--}}
                 <h2>S'inscrire à Last Level Event</h2>

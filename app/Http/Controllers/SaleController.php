@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sale;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class SaleController extends Controller
 {
@@ -34,10 +37,26 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        if (!session()->has('user')){
-            redirect()->route('register.page');
+        //Session::forget('user');
+        if (session()->has('user')){
+
+            $sale = new Sale();
+            $sale->id = (string) Str::uuid();
+            $sale->ref = $request->input('ref');
+            $sale->user_id = session()->get('user')['id'];
+            $sale->event_id = $request->input('event_id');
+            $sale->quantity = $request->input('quantity');
+            $sale->type_id = $request->input('type_id');
+
+            if ($sale->save()){
+                return redirect()->back()->with('success', 'Votre demande a été reçue. Une confirmation vous sera envoyée par e-mail et par WhatsApp.');
+            }else{
+                return redirect()->back()->with('error', 'Une erreur s\'est produite lors de la réception de votre demande. Veuillez réessayer ultérieurement.');
+            }
+
+        }else{
+            return redirect()->route('login.page')->with('warning', "Pour profiter pleinement de notre plateforme et accéder à toutes ses fonctionnalités, veuillez vous connecter à votre compte.");
         }
-        dd($request->all());
     }
 
     /**

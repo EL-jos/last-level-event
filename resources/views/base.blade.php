@@ -206,6 +206,39 @@
             document.getElementById('el-container-menu-phone').classList.remove('el-active');
         }
     </script>
+    @if(session()->has('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Valide',
+                text: "{!! session('success') !!}"
+            });
+        </script>
+    @elseif(session()->has('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur',
+                text: "{!! session('error') !!}"
+            });
+        </script>
+    @elseif(session()->has('warning'))
+        <script>
+            Swal.fire({
+                icon: 'warning',
+                title: 'Votre attention',
+                text: "{!! session('warning') !!}"
+            });
+        </script>
+    @elseif(session()->has('info'))
+        <script>
+            Swal.fire({
+                icon: 'info',
+                title: 'Information',
+                text: "{!! session('info') !!}"
+            });
+        </script>
+    @endif
 @show
 
 </body>

@@ -10,18 +10,19 @@
 @section('main')
     <section id="el-register" class="el-center-box">
         <div class="el-content-area">
-            <form>
+            <form method="post" action="{{ route('login.auth') }}">
+                @csrf
                 <h2>Connectez-vous à Last Level Event</h2>
                 <div class="el-ligne">
                     <div class="el-colonne el-one">
                         <label for="email">E-mail</label>
-                        <input type="text" id="email" />
+                        <input type="text" id="email" name="email" />
                     </div>
                 </div>
                 <div class="el-ligne">
                     <div class="el-colonne el-one">
                         <label for="mdp">Mot de passe</label>
-                        <input type="text" id="mdp" />
+                        <input type="password" id="mdp" name="password" />
                     </div>
                 </div>
                 <button class="el-btn">Se connecter</button>

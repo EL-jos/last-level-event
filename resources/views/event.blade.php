@@ -105,16 +105,21 @@
             <aside>
                 <form method="post" action="{{ route('sale.store') }}">
                     @csrf
+                    <input type="hidden" name="event_id" value="{{ $event->id }}" />
                     <button onclick="onCloseFormAchatTicket()" type="button" id="el-close-form-ticket" class="el-btn el-center-box"> <i class="fas fa-times"></i> </button>
                     <h2>Achat ticket Last Level Event</h2>
                     <div class="el-ligne">
-                        <div class="el-colonne el-one">
+                        <div class="el-colonne">
                             <label for="type_id">Type d'achat</label>
                             <select id="type_id" name="type_id">
                                 @foreach($types as $type)
                                     <option value="{{ $type->id }}">{{ $type->name }}</option>
                                 @endforeach
                             </select>
+                        </div>
+                        <div class="el-colonne">
+                            <label for="quantity">Quantité</label>
+                            <input type="number" id="quantity" name="quantity" value="1" min="1" />
                         </div>
                     </div>
                     <div class="el-type-payment">
@@ -233,6 +238,14 @@
             document.getElementById('el-popup').classList.remove('el-active');
         }
 
+        document.getElementById('quantity').addEventListener('change', (e) => {
+            let quantity = parseInt(e.target.value);
+
+            if(quantity){
+                calculatedPrice(quantity);
+            }
+        })
+
         const el_price_standard = document.getElementById('el-price-standard');
         const el_price_vip = document.getElementById('el-price-vip');
         const type_id = document.getElementById('type_id');
@@ -241,12 +254,25 @@
                 case 1:
                     el_price_standard.classList.add('el-active')
                     el_price_vip.classList.remove('el-active')
+                    calculatedPrice(parseInt(document.getElementById('quantity').value))
                     break;
                 case 2:
                     el_price_standard.classList.remove('el-active')
                     el_price_vip.classList.add('el-active')
+                    calculatedPrice(parseInt(document.getElementById('quantity').value))
                     break;
             }
         })
+
+        function calculatedPrice(quantity){
+            let price = document.querySelector('.el-price.el-active strong');
+            const standard_price = document.getElementById('el-price-standard')
+            const vip_price = document.getElementById('el-price-vip')
+            if(standard_price.classList.contains('el-active')){
+                price.textContent = (`${parseInt( {{ $event->prices()->where('type_id', '=', 1)->first()->amount }} ) * quantity} $`);
+            }else if(vip_price.classList.contains('el-active')){
+                price.textContent = (`${parseInt( {{ $event->prices()->where('type_id', '=', 2)->first()->amount }} ) * quantity} $`);
+            }
+        }
     </script>
 @endsection

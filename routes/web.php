@@ -23,7 +23,8 @@ Route::get('/confidentialite', ['as' => 'confidentialite.page', 'uses' => 'App\\
 Route::get('/register', ['as' => 'register.page', 'uses' => 'App\\Http\\Controllers\\PageController@register']);
 Route::get('/login', ['as' => 'login.page', 'uses' => 'App\\Http\\Controllers\\PageController@login']);
 
-Route::resource('user', 'App\\Http\\Controllers\\UserController')->except(['index', 'create', 'show', 'edit', 'update', 'destroy']);
+Route::post('/auth/register', ['as' => 'register.auth', 'uses' => 'App\\Http\\Controllers\\AuthController@register']);
+Route::post('/auth/login', ['as' => 'login.auth', 'uses' => 'App\\Http\\Controllers\\AuthController@login']);
 Route::resource('sale', 'App\\Http\\Controllers\\SaleController')/*->except(['index', 'create', 'show', 'edit', 'update', 'destroy'])*/;
 
 Route::prefix('admin')->group(function(){

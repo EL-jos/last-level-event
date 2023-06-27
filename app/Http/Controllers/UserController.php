@@ -36,22 +36,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-        $data['id'] = (string) Str::uuid();
-
-        $data['password'] = password_hash($data['mdp'], PASSWORD_DEFAULT);
-
-        $user = User::create($data);
-        if($user != null){
-            session()->put('user', collect([
-                $data['id'],
-                $data['username'],
-                $data['email']
-            ]));
-            return redirect()->route('home.page')->with('success', "Bienvenue sur Last Level Event. Profitez pleinement de notre sélection d'événements passionnants. Bonne expérience !");
-        }else{
-            dd('erreur');
-        }
+        //
     }
 
     /**
