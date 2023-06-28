@@ -61,13 +61,19 @@
                                             <span class="badge badge-sm bg-gradient-success">{{ $sale->price }}</span>
                                         </td>
                                         <td class="align-middle text-center text-sm">
-                                            <span class="badge badge-sm bg-gradient-success">{{ $sale->delete_at == null ? 'OnLine' : 'OnffLine' }}</span>
+                                            <span class="badge badge-sm {{ $sale->status ? 'bg-gradient-success' : 'bg-gradient-danger' }}">{{ $sale->status ? 'Confirmé' : 'Non Confirmé' }}</span>
                                         </td>
                                         <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold">{{ date('d/m/Y à H:i:s', strtotime($sale->updated_at)) }}</span>
                                         </td>
                                         <td class="align-middle">
                                             <div class="d-flex gap-2 w-100 justify-content-end">
+                                                <form action="{{ route('confirm.sale', $sale) }}" method="post">
+                                                    @csrf
+                                                    @method('post')
+
+                                                    <button class="btn btn-success">Confirmé</button>
+                                                </form>
                                                 <a href="{{route('sale.edit', $sale)}}" class="btn btn-primary" data-toggle="tooltip" data-original-title="Edit user">
                                                     Editer
                                                 </a>

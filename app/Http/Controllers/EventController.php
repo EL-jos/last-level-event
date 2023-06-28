@@ -94,8 +94,8 @@ class EventController extends Controller
                 $path_large = $formattedDateTime . '.' . $request->path_large->getClientOriginalExtension();
                 $path_miniature = $formattedDateTime . '.min.' . $request->path_miniature->getClientOriginalExtension();
 
-                $request->path_large->move(public_path('events'), $path_large);
-                $request->path_miniature->move(public_path('events'), $path_miniature);
+                $request->path_large->move(public_path('assets/events'), $path_large);
+                $request->path_miniature->move(public_path('assets/events'), $path_miniature);
 
                 $data = [
                     'id' => (string) Str::uuid(),

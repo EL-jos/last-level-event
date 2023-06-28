@@ -24,12 +24,16 @@ Route::get('/register', ['as' => 'register.page', 'uses' => 'App\\Http\\Controll
 Route::get('/login', ['as' => 'login.page', 'uses' => 'App\\Http\\Controllers\\PageController@login']);
 
 Route::post('/auth/register', ['as' => 'register.auth', 'uses' => 'App\\Http\\Controllers\\AuthController@register']);
+Route::get('/active/{user}', ['as' => 'activeAccount.auth', 'uses' => 'App\\Http\\Controllers\\AuthController@activeAccount']);
 Route::post('/auth/login', ['as' => 'login.auth', 'uses' => 'App\\Http\\Controllers\\AuthController@login']);
-Route::resource('sale', 'App\\Http\\Controllers\\SaleController')->except(['show']);
+
+Route::resource('sale', 'App\\Http\\Controllers\\SaleController');
+Route::get('/check/sale', ['as' => 'check.sale', 'uses' => 'App\\Http\\Controllers\\SaleController@check']);
 
 Route::prefix('admin')->group(function(){
     Route::resource('type', 'App\\Http\\Controllers\\TypeController')->except(['show']);
     Route::resource('category', 'App\\Http\\Controllers\\CategoryController')->except(['show']);
     Route::resource('organiser', 'App\\Http\\Controllers\\OrganiserController')->except(['show']);
     Route::resource('event', 'App\\Http\\Controllers\\EventController')->except(['show']);
+    Route::post('/confirm/{sale}', ['as' => 'confirm.sale', 'uses' => 'App\\Http\\Controllers\\SaleController@confirm']);
 });

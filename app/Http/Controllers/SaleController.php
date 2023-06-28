@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Models\Sale;
 use App\Models\Type;
 use App\Models\User;
+use App\Notifications\RequestSaleConfirmed;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
@@ -81,12 +82,14 @@ class SaleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Sale $sale
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Sale $sale)
     {
-        //
+        return view('ticket.show', [
+            'sale' => $sale
+        ]);
     }
 
     /**
@@ -128,5 +131,21 @@ class SaleController extends Controller
     {
         $sale->delete();
         return redirect()->route('sale.index')->with('success', 'La vente a bien été supprimé');
+    }
+
+    /**
+     * @param Sale $sale
+     */
+    public function confirm(Sale $sale){
+
+        $sale->status = true;
+        if ($sale->save()){
+            /** @var User $user */
+            $user = User::find($sale->user->id);
+            $user->notify(new RequestSaleConfirmed($sale));
+            return redirect()->route('sale.index')->with('success', 'La vente a bien été confirmé');
+        }else{
+            dd('Erreur');
+        }
     }
 }

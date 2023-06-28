@@ -18,7 +18,8 @@ mix.styles('resources/css/element.css', 'public/css/element.css')
 
 mix.js('resources/js/myapp.js', 'public/js/myapp.js')
     .js('resources/js/particles.min.js', 'public/js/particles.min.js')
-    .js('resources/js/sliders.js', 'public/js/sliders.js');
+    .js('resources/js/sliders.js', 'public/js/sliders.js')
+    .js('resources/js/qrcode.min.js', 'public/js/qrcode.min.js');
 
 mix.copyDirectory('resources/fonts/', 'public/fonts/')
     .copyDirectory('resources/assets/', 'public/assets/');
