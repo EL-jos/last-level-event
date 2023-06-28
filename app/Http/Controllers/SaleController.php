@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\Sale;
+use App\Models\Type;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
@@ -16,7 +19,8 @@ class SaleController extends Controller
      */
     public function index()
     {
-        //
+        //dd(Sale::all()->first()->user->username);
+        return view('admin.sale.index', ['sales' => Sale::all()]);
     }
 
     /**
@@ -26,7 +30,12 @@ class SaleController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.sale.form', [
+            'sale' => new Sale(),
+            'users' => User::all(),
+            'events' => Event::all(),
+            'types' => Type::all()
+        ]);
     }
 
     /**
@@ -37,8 +46,8 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        //Session::forget('user');
-        if (session()->has('user')){
+
+        if (session()->has('user') && $request->input('user_id') === null){
 
             $sale = new Sale();
             $sale->id = (string) Str::uuid();
@@ -52,6 +61,16 @@ class SaleController extends Controller
                 return redirect()->back()->with('success', 'Votre demande a été reçue. Une confirmation vous sera envoyée par e-mail et par WhatsApp.');
             }else{
                 return redirect()->back()->with('error', 'Une erreur s\'est produite lors de la réception de votre demande. Veuillez réessayer ultérieurement.');
+            }
+
+        }elseif (!session()->has('user') && $request->input('user_id') !== null){
+
+            $data = $request->all();
+            $data['id'] = (string) Str::uuid();
+            $sale = Sale::create($data);
+
+            if ($sale != null){
+                return redirect()->route('sale.index')->with('success', 'La vente a bien été ajoutée');
             }
 
         }else{
@@ -73,34 +92,41 @@ class SaleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Sale $sale
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Sale $sale)
     {
-        //
+        return view('admin.sale.form', [
+            'sale' => $sale,
+            'users' => User::all(),
+            'events' => Event::all(),
+            'types' => Type::all()
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Sale $sale
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Sale $sale)
     {
-        //
+        $sale->update($request->all());
+        return redirect()->route('sale.index')->with('success', 'La vente a bien été modifié');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Sale $sale
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Sale $sale)
     {
-        //
+        $sale->delete();
+        return redirect()->route('sale.index')->with('success', 'La vente a bien été supprimé');
     }
 }

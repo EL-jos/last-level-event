@@ -232,10 +232,12 @@
     <script>
         const onOpenFormAchatTicket = () => {
             document.getElementById('el-popup').classList.add('el-active')
+            calculatedPrice(parseInt(document.getElementById('quantity').value));
         }
         const onCloseFormAchatTicket = () => {
             document.querySelector('#el-popup form').reset();
             document.getElementById('el-popup').classList.remove('el-active');
+            calculatedPrice(parseInt(document.getElementById('quantity').value));
         }
 
         document.getElementById('quantity').addEventListener('change', (e) => {
@@ -268,9 +270,9 @@
             let price = document.querySelector('.el-price.el-active strong');
             const standard_price = document.getElementById('el-price-standard')
             const vip_price = document.getElementById('el-price-vip')
-            if(standard_price.classList.contains('el-active')){
+            if(standard_price.classList.contains('el-active') || parseInt(document.getElementById('type_id').value) == 1){
                 price.textContent = (`${parseInt( {{ $event->prices()->where('type_id', '=', 1)->first()->amount }} ) * quantity} $`);
-            }else if(vip_price.classList.contains('el-active')){
+            }else if(vip_price.classList.contains('el-active') || parseInt(document.getElementById('type_id').value) == 2){
                 price.textContent = (`${parseInt( {{ $event->prices()->where('type_id', '=', 2)->first()->amount }} ) * quantity} $`);
             }
         }

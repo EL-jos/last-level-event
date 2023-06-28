@@ -25,7 +25,7 @@ Route::get('/login', ['as' => 'login.page', 'uses' => 'App\\Http\\Controllers\\P
 
 Route::post('/auth/register', ['as' => 'register.auth', 'uses' => 'App\\Http\\Controllers\\AuthController@register']);
 Route::post('/auth/login', ['as' => 'login.auth', 'uses' => 'App\\Http\\Controllers\\AuthController@login']);
-Route::resource('sale', 'App\\Http\\Controllers\\SaleController')/*->except(['index', 'create', 'show', 'edit', 'update', 'destroy'])*/;
+Route::resource('sale', 'App\\Http\\Controllers\\SaleController')->except(['show']);
 
 Route::prefix('admin')->group(function(){
     Route::resource('type', 'App\\Http\\Controllers\\TypeController')->except(['show']);
