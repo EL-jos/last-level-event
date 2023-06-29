@@ -20,8 +20,12 @@ class PageController extends Controller
         return view('about');
     }
 
-    public function category(){
-        return view('category');
+    public function category(Category $category){
+
+        return view('category', [
+            'events' => $category->events,
+            'category' => $category
+        ]);
     }
 
     public function event(){

@@ -20,6 +20,10 @@ class AuthController extends Controller
         $data = $request->all();
         $data['id'] = (string) Str::uuid();
 
+        if($data['mdp'] != $data['confirm']){
+            return redirect()->back()->with('error', "Mot de passe inconrect");
+        }
+
         $data['password'] = password_hash($data['mdp'], PASSWORD_DEFAULT);
 
         $user = User::create($data);

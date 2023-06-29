@@ -8,8 +8,12 @@
     /*$date = Carbon::createFromFormat('d/m/Y', $dateString);
     $formattedDate = $date->isoFormat('dddd D, MMM. YYYY, HH:mm');*/
 @endphp
+
 @section('title', $event->title)
+
 @section('description', strip_tags($event->description))
+
+@section('seo')
     <link rel="canonical" href="{{ route('home.page') }}">
 
     <meta name="robots" content="index, follow">
@@ -24,7 +28,6 @@
     <meta name="twitter:creator" content="@lastlevelevent">
     <meta name="twitter:image" content="{{ route('show.image', ['path' => $filename, 'w' => 500, 'h' => 500]) }}">
     <meta name="twitter:url" content="{{ \Illuminate\Support\Facades\URL::current() }}">
-@section('seo')
 @endsection
 @section('style')
     <!-- FLIPDOWN -->
@@ -179,7 +182,7 @@
                 })
                 .start()
                 .ifEnded(() => {
-                    document.querySelector('.flipdown').innerHTML = `<h2>Timer is ended</h2>`;
+                    document.querySelector('.flipdown').innerHTML = `<h2 style="font-family: var(--font-text)">Guichet Fermé</h2>`;
                 })
         });
     </script>

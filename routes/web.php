@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', ['as' => 'home.page', 'uses' => 'App\\Http\\Controllers\\PageController@home']);
 Route::get('/about', ['as' => 'about.page', 'uses' => 'App\\Http\\Controllers\\PageController@about']);
-Route::get('/category', ['as' => 'category.page', 'uses' => 'App\\Http\\Controllers\\PageController@category']);
+Route::get('/category/{category}', ['as' => 'category.page', 'uses' => 'App\\Http\\Controllers\\PageController@category']);
 Route::get('/event', ['as' => 'article.page', 'uses' => 'App\\Http\\Controllers\\PageController@event']);
 Route::get('/event/{event}', ['as' => 'event.details.page', 'uses' => 'App\\Http\\Controllers\\PageController@details']);
 Route::get('/faq', ['as' => 'faq.page', 'uses' => 'App\\Http\\Controllers\\PageController@faq']);
@@ -28,7 +28,7 @@ Route::get('/active/{user}', ['as' => 'activeAccount.auth', 'uses' => 'App\\Http
 Route::post('/auth/login', ['as' => 'login.auth', 'uses' => 'App\\Http\\Controllers\\AuthController@login']);
 
 Route::resource('sale', 'App\\Http\\Controllers\\SaleController');
-Route::get('/check/sale', ['as' => 'check.sale', 'uses' => 'App\\Http\\Controllers\\SaleController@check']);
+Route::get('/check/sale/{sale}', ['as' => 'check.sale', 'uses' => 'App\\Http\\Controllers\\SaleController@check']);
 Route::get('/images/events/{path}', ['as' => 'show.image', 'uses' => 'App\\Http\\Controllers\\ImageController@show']);
 
 Route::prefix('admin')->group(function(){

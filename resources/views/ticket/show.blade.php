@@ -62,13 +62,12 @@
                  gap: .25rem;
              }.el-identity h3{
                   color: #1a1a1a;
-                  font-size: 12px;
+                  font-size: 16px;
               }.el-identity p{
-                   font-size: 10px;
+                   font-size: 12.5px;
                }#qrcode{
                     width: 100px;
                     height: 100px;
-                    background-color: #fff;
                 }.el-content{
                      width: 100%;
                      display: flex;
@@ -77,12 +76,12 @@
                      gap: .5rem;
                  }.el-content h1{
                       width: fit-content;
-                      font-size: 20px;
+                      font-size: 24px;
                       color: #1a1a1a;
                       font-weight: bold;
                   }.el-content p{
                        width: fit-content;
-                       font-size: 12px;
+                       font-size: 15px;
                        color: var(--blue);
                        font-weight: bold;
                    }span{
@@ -158,6 +157,7 @@
         <aside>V.I.P</aside>
     @endif
 </section>
+
 <button onclick="convertToImage()">Télécharger</button>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>

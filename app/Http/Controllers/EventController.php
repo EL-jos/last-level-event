@@ -94,8 +94,8 @@ class EventController extends Controller
                 $path_large = $formattedDateTime . '.' . $request->path_large->getClientOriginalExtension();
                 $path_miniature = $formattedDateTime . '.min.' . $request->path_miniature->getClientOriginalExtension();
 
-                $request->path_large->move(public_path('assets/events'), $path_large);
-                $request->path_miniature->move(public_path('assets/events'), $path_miniature);
+                $request->path_large->move(public_path('events'), $path_large);
+                $request->path_miniature->move(public_path('events'), $path_miniature);
 
                 $data = [
                     'id' => (string) Str::uuid(),
@@ -207,22 +207,51 @@ class EventController extends Controller
                     // Faire quelque chose en cas de mise à jour
                 }
             }
-            /*$event->prices()->sync($request->input("category_id"));
-            if($data['price_vip']){
 
-                $idPrice = (string) Str::uuid();
+            if (isset($request->path_large)){
+                if ($request->path_large->isValid()){
 
-                $price = Price::create([
-                    'id' => $idPrice,
-                    'amount' => $data['price_vip'],
-                    'type_id' => 2
-                ]);
+                    $currentDateTime = Carbon::now();
+                    $formattedDateTime = $currentDateTime->format('Ymd_His');
 
-                if ($price != null){
-                    $event->prices()->attach($idPrice);
+                    $path_large = $formattedDateTime . '.' . $request->path_large->getClientOriginalExtension();
+                    //$path_miniature = $formattedDateTime . '.min.' . $request->path_miniature->getClientOriginalExtension();
+
+                    $request->path_large->move(public_path('events'), $path_large);
+                    //$request->path_miniature->move(public_path('assets/events'), $path_miniature);
+                    $image = Image::find($event->image->id);
+                    if ($image != null){
+                        $image->path_large = $path_large;
+                        $image->save();
+                    }
+
+                }else{
+                    dd('erreur');
                 }
+            }
 
-            }*/
+            if (isset($request->path_miniature)){
+                if ($request->path_miniature->isValid()){
+
+                    $currentDateTime = Carbon::now();
+                    $formattedDateTime = $currentDateTime->format('Ymd_His');
+
+                    //$path_large = $formattedDateTime . '.' . $request->path_large->getClientOriginalExtension();
+                    $path_miniature = $formattedDateTime . '.min.' . $request->path_miniature->getClientOriginalExtension();
+
+                    //$request->path_large->move(public_path('assets/events'), $path_large);
+                    $request->path_miniature->move(public_path('events'), $path_miniature);
+
+                    $image = Image::find($event->image->id);
+                    if ($image != null){
+                        $image->path_miniature = $path_miniature;
+                        $image->save();
+                    }
+
+                }else{
+                    dd('erreur');
+                }
+            }
 
             return redirect()->route('event.index')->with('success', 'L\'article a bien été modifié');
         }else{

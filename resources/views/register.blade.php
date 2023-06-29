@@ -1,4 +1,7 @@
 @extends('base')
+
+@section('title', "S'inscrire")
+
 @section('style')
     <style>
         #el-sponsors,

@@ -1,5 +1,7 @@
 @extends('base')
 
+@section('title', "Foire aux questions")
+
 @section('main')
     <section id="el-breadcrumb" class="el-center-box">
         <div class="el-content-area">

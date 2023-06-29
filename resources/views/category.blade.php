@@ -1,122 +1,42 @@
 @extends('base')
-
+@section('title', $category->name)
 @section('main')
     <section id="el-breadcrumb" class="el-center-box">
         <div class="el-content-area">
             <div class="el-grid">
                 <a href="{{ route('home.page') }}">Accueil /</a>
-                <span>Categorie</span>
+                <span>{{ $category->name }}</span>
             </div>
         </div>
     </section>
     <section id="el-popular-products" class="el-center-box">
         <div class="el-content-area">
             <div class="el-grid">
-                <a href="{{ route('article.page') }}" class="el-card animate__animated" data-item="Théatre & Humour">
-                    <div class="el-box-img">
-                        <img src="{{ asset('assets/img/events/1.jpg') }}" alt="" class="el-img">
-                    </div>
-                    <div class="el-content">
-                        <h3 class="el-card-title">Boudchart à Rabat - Théâtre Mohammed V</h3>
-                        <p class="el-price"><i class="fas fa-money-bill-alt"></i> à partir de <span>190 MAD</span></p>
-                        <ul class="el-calandar">
-                            <li class="el-date">
-                                <p><i class="fas fa-calendar-alt"></i> mar 13 juin</p>
-                            </li>
-                            <li class="el-hour">
-                                <p>20h30</p>
-                            </li>
-                            <li class="el-duration">
-                                <p><i class="fas fa-clock"></i> 2h</p>
-                            </li>
-                        </ul>
-                        <p class="el-localization"><i class="fas fa-map-marker-alt"></i> Thêatre national Mohammed V, Rabat</p>
-                    </div>
-                </a>
-                <a href="{{ route('article.page') }}" class="el-card animate__animated" data-item="Concerts & Festival">
-                    <div class="el-box-img">
-                        <img src="{{ asset('assets/img/events/2.jpg') }}" alt="" class="el-img">
-                    </div>
-                    <div class="el-content">
-                        <h3 class="el-card-title">Boudchart à Rabat - Théâtre Mohammed V</h3>
-                        <p class="el-price"><i class="fas fa-money-bill-alt"></i> à partir de <span>190 MAD</span></p>
-                        <ul class="el-calandar">
-                            <li class="el-date">
-                                <p><i class="fas fa-calendar-alt"></i> mar 13 juin</p>
-                            </li>
-                            <li class="el-hour">
-                                <p>20h30</p>
-                            </li>
-                            <li class="el-duration">
-                                <p><i class="fas fa-clock"></i> 2h</p>
-                            </li>
-                        </ul>
-                        <p class="el-localization"><i class="fas fa-map-marker-alt"></i> Thêatre national Mohammed V, Rabat</p>
-                    </div>
-                </a>
-                <a href="{{ route('article.page') }}" class="el-card animate__animated" data-item="Concerts & Festival">
-                    <div class="el-box-img">
-                        <img src="{{ asset('assets/img/events/3.jpg') }}" alt="" class="el-img">
-                    </div>
-                    <div class="el-content">
-                        <h3 class="el-card-title">Boudchart à Rabat - Théâtre Mohammed V</h3>
-                        <p class="el-price"><i class="fas fa-money-bill-alt"></i> à partir de <span>190 MAD</span></p>
-                        <ul class="el-calandar">
-                            <li class="el-date">
-                                <p><i class="fas fa-calendar-alt"></i> mar 13 juin</p>
-                            </li>
-                            <li class="el-hour">
-                                <p>20h30</p>
-                            </li>
-                            <li class="el-duration">
-                                <p><i class="fas fa-clock"></i> 2h</p>
-                            </li>
-                        </ul>
-                        <p class="el-localization"><i class="fas fa-map-marker-alt"></i> Thêatre national Mohammed V, Rabat</p>
-                    </div>
-                </a>
-                <a href="{{ route('article.page') }}" class="el-card animate__animated" data-item="Famille & loisirs">
-                    <div class="el-box-img">
-                        <img src="{{ asset('assets/img/events/4.jpg') }}" alt="" class="el-img">
-                    </div>
-                    <div class="el-content">
-                        <h3 class="el-card-title">Boudchart à Rabat - Théâtre Mohammed V</h3>
-                        <p class="el-price"><i class="fas fa-money-bill-alt"></i> à partir de <span>190 MAD</span></p>
-                        <ul class="el-calandar">
-                            <li class="el-date">
-                                <p><i class="fas fa-calendar-alt"></i> mar 13 juin</p>
-                            </li>
-                            <li class="el-hour">
-                                <p>20h30</p>
-                            </li>
-                            <li class="el-duration">
-                                <p><i class="fas fa-clock"></i> 2h</p>
-                            </li>
-                        </ul>
-                        <p class="el-localization"><i class="fas fa-map-marker-alt"></i> Thêatre national Mohammed V, Rabat</p>
-                    </div>
-                </a>
-                <a href="{{ route('article.page') }}" class="el-card animate__animated" data-item="Sport">
-                    <div class="el-box-img">
-                        <img src="{{ asset('assets/img/events/5.jpg') }}" alt="" class="el-img">
-                    </div>
-                    <div class="el-content">
-                        <h3 class="el-card-title">Boudchart à Rabat - Théâtre Mohammed V</h3>
-                        <p class="el-price"><i class="fas fa-money-bill-alt"></i> à partir de <span>190 MAD</span></p>
-                        <ul class="el-calandar">
-                            <li class="el-date">
-                                <p><i class="fas fa-calendar-alt"></i> mar 13 juin</p>
-                            </li>
-                            <li class="el-hour">
-                                <p>20h30</p>
-                            </li>
-                            <li class="el-duration">
-                                <p><i class="fas fa-clock"></i> 2h</p>
-                            </li>
-                        </ul>
-                        <p class="el-localization"><i class="fas fa-map-marker-alt"></i> Thêatre national Mohammed V, Rabat</p>
-                    </div>
-                </a>
+                @forelse($events as $event)
+                    <a href="{{ route('event.details.page', $event) }}" class="el-card animate__animated" data-item="@foreach($event->categories as $category) {{ $category->name . ' ' }} @endforeach">
+                        <div class="el-box-img">
+                            <img src="{{ asset($event->image->path_miniature) }}" alt="" class="el-img">
+                        </div>
+                        <div class="el-content">
+                            <h3 class="el-card-title">{{ $event->title }}</h3>
+                            <p class="el-price"><i class="fas fa-money-bill-alt"></i> à partir de <span>{{ $event->prices()->where('type_id', '=', 1)->first()->amount }} $</span></p>
+                            <ul class="el-calandar">
+                                <li class="el-date">
+                                    <p><i class="fas fa-calendar-alt"></i> {{ date('d/m/Y', strtotime($event->date)) }}</p>
+                                </li>
+                                <li class="el-hour">
+                                    <p>{{ date('H:i', strtotime($event->time)) }}</p>
+                                </li>
+                                <li class="el-duration">
+                                    <p><i class="fas fa-clock"></i> {{ $event->duration }}h</p>
+                                </li>
+                            </ul>
+                            <p class="el-localization"><i class="fas fa-map-marker-alt"></i> {{ $event->location }}</p>
+                        </div>
+                    </a>
+                @empty
+                    <p>Pas d'événement disponible pour cette catégorie.</p>
+                @endforelse
             </div>
         </div>
     </section>

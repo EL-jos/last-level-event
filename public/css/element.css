@@ -624,7 +624,7 @@ form .el-ligne{
    }#el-popup form .el-price.el-active{
         display: block;
     }#el-popup form .el-phone img{
-         height: 70px;
+         height: calc(var(--font-size-text) * 2.5);
      }
 #el-popup form .el-phone{
     display: flex;

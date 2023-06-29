@@ -4,6 +4,7 @@
 
     <title>@yield('title', 'Last Level Event')</title>
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--SEO -->
     <meta name="description" content="@yield('description', 'Description par défaut')">
@@ -40,10 +41,10 @@
             <li class="el-menu-desktop">
                 <nav>
                     <ul>
-                        <li><a href="{{ route('category.page') }}">Théatre & Humour</a></li>
-                        <li><a href="{{ route('category.page') }}">Concerts & Festival</a></li>
-                        <li><a href="{{ route('category.page') }}">Famille & loisirs</a></li>
-                        <li><a href="{{ route('category.page') }}">Sport</a></li>
+                        <li><a href="{{ route('category.page', 7) }}">Théatre & Humour</a></li>
+                        <li><a href="{{ route('category.page', 8) }}">Concerts & Festival</a></li>
+                        <li><a href="{{ route('category.page', 9) }}">Famille & loisirs</a></li>
+                        <li><a href="{{ route('category.page', 10) }}">Sport</a></li>
                     </ul>
                 </nav>
             </li>
@@ -119,10 +120,10 @@
         </header>
         <main>
             <ul>
-                <li><a href="{{ route('category.page') }}">Théatre & Humour</a></li>
-                <li><a href="{{ route('category.page') }}">Concerts & Festival</a></li>
-                <li><a href="{{ route('category.page') }}">Famille & loisirs</a></li>
-                <li><a href="{{ route('category.page') }}">Sport</a></li>
+                <li><a href="{{ route('category.page', 7) }}">Théatre & Humour</a></li>
+                <li><a href="{{ route('category.page', 7) }}">Concerts & Festival</a></li>
+                <li><a href="{{ route('category.page', 7) }}">Famille & loisirs</a></li>
+                <li><a href="{{ route('category.page', 7) }}">Sport</a></li>
             </ul>
         </main>
         <ul class="el-social-links">

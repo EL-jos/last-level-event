@@ -1,4 +1,7 @@
 @extends('base')
+
+@section('title', "S'identifier")
+
 @section('style')
     <style>
         #el-sponsors,

@@ -1,5 +1,24 @@
 @extends('base')
 
+@section('description', "Last Level Event est une société spécialisée dans la vente en ligne de tickets pour les événements. Découvrez une large sélection de concerts, spectacles, festivals et bien plus encore. Réservez vos places en toute simplicité et profitez d'une expérience unique. Ne manquez pas les événements les plus populaires et vivez des moments inoubliables avec Last Level Event.")
+
+@section('seo')
+    <link rel="canonical" href="{{ route('home.page') }}">
+
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Last Level Event">
+    <meta property="og:description" content="Last Level Event est une société spécialisée dans la vente en ligne de tickets pour les événements. Découvrez une large sélection de concerts, spectacles, festivals et bien plus encore. Réservez vos places en toute simplicité et profitez d'une expérience unique. Ne manquez pas les événements les plus populaires et vivez des moments inoubliables avec Last Level Event.">
+    <!-- <meta property="og:image" content=""> -->
+    <meta property="og:url" content="{{ \Illuminate\Support\Facades\URL::current() }}">
+    <meta property="og:type" content="website">
+
+    <meta name="twitter:title" content="Last Level Event">
+    <meta name="twitter:description" content="Last Level Event est une société spécialisée dans la vente en ligne de tickets pour les événements. Découvrez une large sélection de concerts, spectacles, festivals et bien plus encore. Réservez vos places en toute simplicité et profitez d'une expérience unique. Ne manquez pas les événements les plus populaires et vivez des moments inoubliables avec Last Level Event.">
+    <meta name="twitter:creator" content="@lastlevelevent">
+    <!-- <meta name="twitter:image" content=""> -->
+    <meta name="twitter:url" content="{{ \Illuminate\Support\Facades\URL::current() }}">
+@endsection
+
 @section('sliders')
     <section id="el-sliders" class="el-center-box">
         <div id="el-bg"></div>
@@ -20,11 +39,9 @@
         <div class="el-content-area">
             <div class="el-title-and-filter">
                 <ul>
-                    {{--<li class="el-list el-active animate__animated" data-filter="Théatre & Humour">Théatre & Humour</li>
-                    <li class="el-list animate__animated" data-filter="Concerts & Festival">Concerts & Festival</li>
-                    <li class="el-list animate__animated" data-filter="Famille & loisirs">Famille & loisirs</li>--}}
+                    <li class="el-list el-active animate__animated" data-filter="Tous">Tous</li>
                     @foreach($categories as $category)
-                        <li class="el-list animate__animated" data-filter="{{ $category->id }}">{{ $category->name }}</li>
+                        <li class="el-list animate__animated" data-filter="{{ $category->name }}">{{ $category->name }}</li>
                     @endforeach
                 </ul>
             </div>
@@ -101,7 +118,7 @@
                     item.classList.remove('el-active');
                     item.classList.add('el-hide');
 
-                    if(item.getAttribute('data-item') == dataFilter || dataFilter == "Tous"){
+                    if(item.getAttribute('data-item').includes(dataFilter) || dataFilter == "Tous"){
 
                         item.classList.remove('el-hide');
                         item.classList.add('el-active');
