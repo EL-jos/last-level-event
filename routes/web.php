@@ -28,7 +28,7 @@ Route::get('/active/{user}', ['as' => 'activeAccount.auth', 'uses' => 'App\\Http
 Route::post('/auth/login', ['as' => 'login.auth', 'uses' => 'App\\Http\\Controllers\\AuthController@login']);
 
 Route::resource('sale', 'App\\Http\\Controllers\\SaleController');
-Route::get('/check/sale', ['as' => 'check.sale', 'uses' => 'App\\Http\\Controllers\\SaleController@check']);
+Route::get('/check/sale/{sale}', ['as' => 'check.sale', 'uses' => 'App\\Http\\Controllers\\SaleController@check']);
 Route::get('/images/events/{path}', ['as' => 'show.image', 'uses' => 'App\\Http\\Controllers\\ImageController@show']);
 
 Route::prefix('admin')->group(function(){

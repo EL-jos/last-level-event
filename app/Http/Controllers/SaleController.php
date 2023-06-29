@@ -7,6 +7,7 @@ use App\Models\Sale;
 use App\Models\Type;
 use App\Models\User;
 use App\Notifications\RequestSaleConfirmed;
+use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -155,6 +156,24 @@ class SaleController extends Controller
      */
     public function check(Sale $sale){
 
+        if($sale->status){
+
+            $sale_created = Carbon::parse($sale->created_at);
+            $event_date = Carbon::parse($sale->event->date);
+
+            if ($event_date->gt($sale_created)) {
+                // Si le ticket a été acheté avant la date de l'événement donc le ticket est valide
+                return view('ticket.check', ['is_valid' => true]);
+            } elseif ($event_date->lt($sale_created)) {
+                // Si le ticket a été acheté après la date de l'événement donc le ticket n'est pas valide
+                return view('ticket.check', ['is_valid' => false]);
+            } else {
+                // Les deux dates sont égales donc le ticket est valide
+                return view('ticket.check', ['is_valid' => true]);
+            }
+
+        }
+        return view('ticket.check', ['is_valid' => false]);
     }
 
 }
