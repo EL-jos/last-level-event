@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
 class AuthController extends Controller
@@ -41,7 +42,7 @@ class AuthController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function login(Request  $request){
-
+        Session::forget('user');
         $data = $request->all();
         $user = User::where('email', '=', $data['email'])->first();
         if($user != null){

@@ -115,7 +115,7 @@
                             position: absolute;
                             text-align: center;
                             right: -7%;
-                        }a{
+                        }button{
                              background: var(--blue);
                              padding: .5rem 1rem;
                              width: fit-content;
@@ -123,6 +123,9 @@
                              box-shadow: 0 8px 10px rgba(0, 0, 0, .1);
                              color: #f2f2f2;
                              text-decoration: none;
+                            outline: none;
+                            border: none;
+                            cursor: pointer;
                          }
     </style>
     <script src="{{ asset('js/qrcode.min.js')}}"></script>
@@ -155,7 +158,26 @@
         <aside>V.I.P</aside>
     @endif
 </section>
-<a href="">Télécharger</a>
+<button onclick="convertToImage()">Télécharger</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+<script>
+    function convertToImage() {
+        const element = document.getElementById('el-ticket');
+
+        html2canvas(element).then(function (canvas) {
+            // Convertir le canvas en image (par défaut, l'image sera au format PNG)
+            const image = canvas.toDataURL();
+
+            // Créer un lien de téléchargement pour l'image
+            const link = document.createElement('a');
+            link.href = image;
+            link.download = 'capture.png';
+            link.click();
+        });
+    }
+
+</script>
 <script>
 
     var qrcode = new QRCode(document.getElementById("qrcode"), {

@@ -7,6 +7,7 @@ use App\Models\Sale;
 use App\Models\Type;
 use App\Models\User;
 use App\Notifications\RequestSaleConfirmed;
+use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
@@ -148,4 +149,12 @@ class SaleController extends Controller
             dd('Erreur');
         }
     }
+
+    /**
+     * @param Sale $sale
+     */
+    public function check(Sale $sale){
+
+    }
+
 }
