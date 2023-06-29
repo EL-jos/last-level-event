@@ -4,6 +4,7 @@
 
     <title>@yield('title', 'Last Level Event')</title>
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- JQUERY UI -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">

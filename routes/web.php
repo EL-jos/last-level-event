@@ -29,6 +29,7 @@ Route::post('/auth/login', ['as' => 'login.auth', 'uses' => 'App\\Http\\Controll
 
 Route::resource('sale', 'App\\Http\\Controllers\\SaleController');
 Route::get('/check/sale', ['as' => 'check.sale', 'uses' => 'App\\Http\\Controllers\\SaleController@check']);
+Route::get('/images/events/{path}', ['as' => 'show.image', 'uses' => 'App\\Http\\Controllers\\ImageController@show']);
 
 Route::prefix('admin')->group(function(){
     Route::resource('type', 'App\\Http\\Controllers\\TypeController')->except(['show']);
