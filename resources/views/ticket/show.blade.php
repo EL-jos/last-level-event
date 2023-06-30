@@ -159,6 +159,7 @@
 </section>
 
 <button onclick="convertToImage()">Télécharger</button>
+<a href="{{ route('check.sale', $sale) }}">Télécharger</a>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
 <script>
