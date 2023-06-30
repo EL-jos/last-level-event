@@ -133,15 +133,21 @@
                     <div class="el-ligne">
                         <div class="el-colonne">
                             <label for="type_id">Type d'achat</label>
-                            <select id="type_id" name="type_id">
+                            <select id="type_id" name="type_id" value="{{ old('quantity') }}">
                                 @foreach($types as $type)
-                                    <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                    <option @if(old('type_id') == $type->id) selected @endif value="{{ $type->id }}">{{ $type->name }}</option>
                                 @endforeach
                             </select>
+                            @error('type_id')
+                                <div class="el-error">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="el-colonne">
                             <label for="quantity">Quantité</label>
-                            <input type="number" id="quantity" name="quantity" value="1" min="1" />
+                            <input type="number" id="quantity" name="quantity" value="1" min="1" value="{{ old('quantity') }}" />
+                            @error('quantity')
+                                <div class="el-error">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                     <div class="el-type-payment">
@@ -154,7 +160,10 @@
                     <div class="el-ligne">
                         <div class="el-colonne el-one">
                             <label for="type_id">Référence de la transaction</label>
-                            <input type="text" name="ref" />
+                            <input type="text" name="ref" value="{{ old('ref') }}" />
+                            @error('ref')
+                                <div class="el-error">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                     <button type="submit" class="el-btn">Acheter</button>

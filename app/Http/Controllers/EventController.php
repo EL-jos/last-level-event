@@ -221,7 +221,7 @@ class EventController extends Controller
                     //$request->path_miniature->move(public_path('assets/events'), $path_miniature);
                     $image = Image::find($event->image->id);
                     if ($image != null){
-                        $image->path_large = $path_large;
+                        $image->path_large = "events/" . $path_large;
                         $image->save();
                     }
 
@@ -244,7 +244,7 @@ class EventController extends Controller
 
                     $image = Image::find($event->image->id);
                     if ($image != null){
-                        $image->path_miniature = $path_miniature;
+                        $image->path_miniature = "events/" . $path_miniature;
                         $image->save();
                     }
 

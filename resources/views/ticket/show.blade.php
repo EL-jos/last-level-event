@@ -146,9 +146,6 @@
         </li>
     </ul>
     <article class="el-content">
-        <span></span>
-        <span></span>
-        <span></span>
         <h1>{{ $sale->event->title }}</h1>
         <p>{{ $sale->event->organiser->name }}</p>
     </article>
@@ -158,11 +155,19 @@
     @endif
 </section>
 
-<button onclick="convertToImage()">Télécharger</button>
-<a href="{{ route('check.sale', $sale) }}">Télécharger</a>
+<button id="el-btn-download">Télécharger</button>
+<!--<a href="{{ route('check.sale', $sale) }}">Télécharger</a>-->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>-->
+<!-- JQUERY -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="{{ asset("js/printThis.js") }}"></script>
 <script>
+    $(document).ready(() => {
+        $("#el-btn-download").click(() => {
+            $("#el-ticket").printThis();
+        })
+    })
     function convertToImage() {
         const element = document.getElementById('el-ticket');
 

@@ -1,3 +1,6 @@
+@php
+    $routesBGWhite = ['register', 'login', 'contact'];
+@endphp
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -26,7 +29,7 @@
     <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
     @yield('style')
 </head>
-<body @class(['el-identification' => Request::path() == 'register' || Request::path() == 'login'])>
+<body @class(['el-identification' => in_array(Request::path(), $routesBGWhite)])>
 <header id="el-header-page" class="el-center-box">
     <div class="el-content-area">
         <ul>
@@ -149,14 +152,14 @@
                     <li class="animate__animated"><a href="{{ route('about.page') }}">Qui sommes-nous ?</a></li>
                     <li class="animate__animated"><a href="{{ route('faq.page') }}">Centre d'aide</a></li>
                     <li class="animate__animated"><a href="{{ route('faq.page') }}">FAQ</a></li>
-                    <li class="animate__animated"><a href="">Contactez-nous</a></li>
+                    <li class="animate__animated"><a href="{{ route('contact.page') }}">Contactez-nous</a></li>
                 </ul>
             </div>
             <div class="el-block">
                 <h2>Liens utiles</h2>
                 <ul>
-                    <li class="animate__animated"><a href="{{ route('register.page') }}">S'identifier ?</a></li>
-                    <li class="animate__animated"><a href="{{ route('login.page') }}">S'inscrire</a></li>
+                    <li class="animate__animated"><a href="{{ route('login.page') }}">S'identifier ?</a></li>
+                    <li class="animate__animated"><a href="{{ route('register.page') }}">S'inscrire</a></li>
                     <li class="animate__animated"><a href="{{ route('confidentialite.page') }}">Politique de confidentialité</a></li>
                     <li class="animate__animated"><a href="{{ route('confidentialite.page') }}">Terme et conditions</a></li>
                 </ul>
@@ -240,6 +243,20 @@
                 icon: 'info',
                 title: 'Information',
                 text: "{!! session('info') !!}"
+            });
+        </script>
+    @elseif($errors->any())
+        <script>
+            var errorMessages = "<ul>";
+            @foreach ($errors->all() as $error)
+                errorMessages += "<li>{{ $error }}</li>";
+            @endforeach
+                errorMessages += "</ul>";
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur',
+                html: errorMessages
             });
         </script>
     @endif

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class AuthController extends Controller
@@ -17,10 +18,25 @@ class AuthController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function register(Request $request){
+
+        $validators = Validator::make($request->all(), [
+            'username' => 'required|min:3|unique:users',
+            'lastname' => 'required|min:3',
+            'name' => 'required|min:3',
+            'email' => 'required|email:rfc,dns|unique:users',
+            'phone' => 'required|regex:/^\+243[ _-]?([0-9]{3}[ _-]?){3}$/',
+            'address' => 'required|min:10',
+            'mdp' => 'required|min:6|required_with:mdp_confirmation|confirmed',
+            'mdp_confirmation' => 'required|min:6|same:mdp_confirmation',
+        ]);
+        $errors = $validators->errors();
+        if($validators->fails()){
+            return back()->withErrors($errors)->withInput();
+        }
         $data = $request->all();
         $data['id'] = (string) Str::uuid();
 
-        if($data['mdp'] != $data['confirm']){
+        if($data['mdp'] != $data['mdp_confirmation']){
             return redirect()->back()->with('error', "Mot de passe inconrect");
         }
 
@@ -46,7 +62,14 @@ class AuthController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function login(Request  $request){
-        Session::forget('user');
+        $validators = Validator::make($request->all(), [
+            'email' => 'required|email:rfc,dns|exists:users,email',
+            'password' => 'required|min:6',
+        ]);
+        $errors = $validators->errors();
+        if($validators->fails()){
+            return back()->withErrors($errors)->withInput();
+        }
         $data = $request->all();
         $user = User::where('email', '=', $data['email'])->first();
         if($user != null){

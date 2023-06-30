@@ -1,6 +1,6 @@
 @extends('base')
 
-@section('title', "S'identifier")
+@section('title', "Contact")
 
 @section('style')
     <style>
@@ -13,27 +13,66 @@
 @section('main')
     <section id="el-register" class="el-center-box">
         <div class="el-content-area">
-            <form method="post" action="{{ route('login.auth') }}">
+            <form method="post" action="{{ route('contact.page') }}">
                 @csrf
-                <h2>Connectez-vous à Last Level Event</h2>
+                <h2>Nous joindre</h2>
+
                 <div class="el-ligne">
-                    <div class="el-colonne el-one">
+                    <div class="el-colonne">
+                        <label for="lastname">Prénom</label>
+                        <input type="text" id="lastname" name="lastname" value="{{ old('lastname') }}" />
+                        @error('lastname')
+                            <div class="el-error">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="el-colonne">
+                        <label for="name">Nom</label>
+                        <input type="text" id="name" name="name" value="{{ old('name') }}" />
+                        @error('name')
+                            <div class="el-error">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="el-ligne">
+                    <div class="el-colonne">
                         <label for="email">E-mail</label>
                         <input type="text" id="email" name="email" value="{{ old('email') }}" />
                         @error('email')
                             <div class="el-error">{{ $message }}</div>
                         @enderror
                     </div>
+                    <div class="el-colonne">
+                        <label for="phone">Téléphone</label>
+                        <input type="text" id="phone" name="phone" placeholder="+243 xxx xxx xxx" value="{{ old('phone') }}" />
+                        @error('phone')
+                            <div class="el-error">{{ $message }}</div>
+                        @enderror
+                    </div>
                 </div>
                 <div class="el-ligne">
                     <div class="el-colonne el-one">
-                        <label for="password">Mot de passe</label>
-                        <input type="password" id="mdp" name="password" />
+                        <label for="subject">Sujet</label>
+                        <select id="subject" name="subject">
+                            <option disabled selected value=""></option>
+                            <option @if(old('subject') == "Suggestion") selected @endif value="Suggestion">Suggestion</option>
+                            <option @if(old('subject') == "Réclamation") selected @endif value="Réclamation">Réclamation</option>
+                            <option @if(old('subject') == "Demande d'information") selected @endif value="Demande d'information">Demande d'information</option>
+                        </select>
+                        @error('subject')
+                        <div class="el-error">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
-                <button class="el-btn">Se connecter</button>
-                <hr>
-                <p>Vous n'avez pas de compte ? <a href="{{ route('register.page') }}">S'inscrire</a></p>
+                <div class="el-ligne">
+                    <div class="el-colonne  el-one">
+                        <label for="content">Message</label>
+                        <textarea id="content" name="content">{{ old('content') }}</textarea>
+                        @error('content')
+                            <div class="el-error">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                <button class="el-btn">Envoyer</button>
             </form>
         </div>
     </section>

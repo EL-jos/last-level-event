@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class SaleController extends Controller
@@ -51,6 +52,16 @@ class SaleController extends Controller
     {
 
         if (session()->has('user') && $request->input('user_id') === null){
+
+            $validators = Validator::make($request->all(), [
+                'type_id' => 'required|min:1|numeric',
+                'quantity' => 'required|min:1|numeric',
+                'ref' => 'required|alpha_dash',
+            ]);
+            $errors = $validators->errors();
+            if($validators->fails()){
+                return back()->withErrors($errors)->withInput();
+            }
 
             $sale = new Sale();
             $sale->id = (string) Str::uuid();

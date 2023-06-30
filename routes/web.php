@@ -22,6 +22,8 @@ Route::get('/faq', ['as' => 'faq.page', 'uses' => 'App\\Http\\Controllers\\PageC
 Route::get('/confidentialite', ['as' => 'confidentialite.page', 'uses' => 'App\\Http\\Controllers\\PageController@confidentialite']);
 Route::get('/register', ['as' => 'register.page', 'uses' => 'App\\Http\\Controllers\\PageController@register']);
 Route::get('/login', ['as' => 'login.page', 'uses' => 'App\\Http\\Controllers\\PageController@login']);
+Route::get('/contact', ['as' => 'contact.page', 'uses' => 'App\\Http\\Controllers\\PageController@contact']);
+Route::post('/contact', ['as' => 'contact.page', 'uses' => 'App\\Http\\Controllers\\PageController@contactUs']);
 
 Route::post('/auth/register', ['as' => 'register.auth', 'uses' => 'App\\Http\\Controllers\\AuthController@register']);
 Route::get('/active/{user}', ['as' => 'activeAccount.auth', 'uses' => 'App\\Http\\Controllers\\AuthController@activeAccount']);

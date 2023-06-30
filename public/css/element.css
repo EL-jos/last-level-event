@@ -534,7 +534,8 @@ form .el-ligne{
      gap: .5rem;
      width: 100%;
  }form input,
-  form select{
+  form select,
+  form textarea{
       display: block;
       min-height: 40px;
       width: 100%;
@@ -547,6 +548,9 @@ form .el-ligne{
       font-family: var(--font-text) !important;
       font-size: calc(var(--font-size-text) * 1.1);
       border-radius: 5px;
+       resize: vertical;
+  }form textarea{
+    min-height: 100px;
   }form label,
    form h2{
        font-weight: 400;
@@ -554,7 +558,9 @@ form .el-ligne{
        font-family: var(--font-text) !important;
        font-size: calc(var(--font-size-text) * 1.1);
        letter-spacing: 1px;
-   }form h2{
+   }form .el-error{
+        color: var(--danger);
+    }form h2{
         font-weight: bold;
         font-family: var(--font-text) !important;
         font-size: calc(var(--font-size-text) * 1.3);
