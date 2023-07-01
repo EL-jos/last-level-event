@@ -46,8 +46,6 @@
             </li>
             <li class="el-menu-desktop">
                 <nav>
-
-                    <p>{{ $navbar }}</p>
                     <ul>
                         <li><a href="{{ route('category.page', http_build_query(['ids' => [20, 21]])) }}">Théatre & Humour</a></li>
                         <li><a href="{{ route('category.page', http_build_query(['ids' => [13, 36]])) }}">Concerts & Festival</a></li>
@@ -57,9 +55,7 @@
                 </nav>
             </li>
             <li class="el-checkout">
-                <a href="" class="el-btn el-center-box">
-                    <i class="fas fa-shopping-bag"></i>
-                </a>
+                <a href="{{ route('register.page') }}" class="el-btn el-center-box"><i class="fas fa-user-plus"></i></a>
             </li>
         </ul>
     </div>
