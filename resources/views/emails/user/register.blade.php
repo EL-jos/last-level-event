@@ -42,7 +42,11 @@
             Avant de pouvoir profiter pleinement de toutes les fonctionnalités de notre site,
             veuillez cliquer sur le lien ci-dessous pour activer votre adresse e-mail et valider votre compte :
         </p>
-        <a href="{{ route('activeAccount.auth', $user) }}">{{ route('activeAccount.auth', $user) }}</a>
+        @if(isset($event) && $event != null)
+            <a href="{{ route('activeAccount.auth', ['user' => $user->id, 'event' => $event]) }}">{{ route('activeAccount.auth', $user) }}</a>
+        @else
+            <a href="{{ route('activeAccount.auth', $user) }}">{{ route('activeAccount.auth', $user) }}</a>
+        @endif
         <p>
             En activant votre compte, vous pourrez bénéficier d'une expérience personnalisée,
             réserver des billets pour vos événements préférés et rester informé des dernières actualités.

@@ -17,12 +17,13 @@ class RequestRegister extends Notification
     /**
      * Create a new notification instance.
      * @param User $user
+     * @param string $event_id = null
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(User $user, string $event_id = null)
     {
         $this->user = $user;
-        //
+        $this->event_id = $event_id;
     }
 
     /**
@@ -47,7 +48,8 @@ class RequestRegister extends Notification
         return (new MailMessage)
             ->subject('Last Level Event')
             ->view('emails.user.register', [
-                'user' => $this->user
+                'user' => $this->user,
+                'event' => $this->event_id
             ]);
     }
 

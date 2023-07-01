@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\URL;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -61,7 +62,9 @@ class User extends Authenticatable
 
         static::created(function ($user){
             // Logique à exécuter après l'insertion du modèle
-            $user->notify(new RequestRegister($user));
+            $params = explode('/register/', URL::current());
+
+            $user->notify(new RequestRegister($user, count($params) == 2 ? $params[1] : null));
         });
     }
 

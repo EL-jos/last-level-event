@@ -20,14 +20,14 @@ Route::get('/event', ['as' => 'article.page', 'uses' => 'App\\Http\\Controllers\
 Route::get('/event/{event}', ['as' => 'event.details.page', 'uses' => 'App\\Http\\Controllers\\PageController@details']);
 Route::get('/faq', ['as' => 'faq.page', 'uses' => 'App\\Http\\Controllers\\PageController@faq']);
 Route::get('/confidentialite', ['as' => 'confidentialite.page', 'uses' => 'App\\Http\\Controllers\\PageController@confidentialite']);
-Route::get('/register', ['as' => 'register.page', 'uses' => 'App\\Http\\Controllers\\PageController@register']);
-Route::get('/login', ['as' => 'login.page', 'uses' => 'App\\Http\\Controllers\\PageController@login']);
+Route::get('/register/{event?}', ['as' => 'register.page', 'uses' => 'App\\Http\\Controllers\\PageController@register']);
+Route::get('/login/{event?}', ['as' => 'login.page', 'uses' => 'App\\Http\\Controllers\\PageController@login']);
 Route::get('/contact', ['as' => 'contact.page', 'uses' => 'App\\Http\\Controllers\\PageController@contact']);
 Route::post('/contact', ['as' => 'contact.page', 'uses' => 'App\\Http\\Controllers\\PageController@contactUs']);
 
-Route::post('/auth/register', ['as' => 'register.auth', 'uses' => 'App\\Http\\Controllers\\AuthController@register']);
-Route::get('/active/{user}', ['as' => 'activeAccount.auth', 'uses' => 'App\\Http\\Controllers\\AuthController@activeAccount']);
-Route::post('/auth/login', ['as' => 'login.auth', 'uses' => 'App\\Http\\Controllers\\AuthController@login']);
+Route::post('/auth/register/{event?}', ['as' => 'register.auth', 'uses' => 'App\\Http\\Controllers\\AuthController@register']);
+Route::get('/active/{user}/{event?}', ['as' => 'activeAccount.auth', 'uses' => 'App\\Http\\Controllers\\AuthController@activeAccount']);
+Route::post('/auth/login/{event?}', ['as' => 'login.auth', 'uses' => 'App\\Http\\Controllers\\AuthController@login']);
 
 Route::resource('sale', 'App\\Http\\Controllers\\SaleController');
 Route::get('/check/sale/{sale}', ['as' => 'check.sale', 'uses' => 'App\\Http\\Controllers\\SaleController@check']);

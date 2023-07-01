@@ -59,13 +59,15 @@ class PageController extends Controller
         return view('confidentialite');
     }
 
-    public function register(){
+    public function register(Event $event = null){
+
         return view('register', [
             'sexes' => Sex::all()
         ]);
     }
 
-    public function login(){
+    public function login(Event $event){
+
         return view('login');
     }
 

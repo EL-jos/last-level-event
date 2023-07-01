@@ -1,5 +1,11 @@
 @extends('base')
-
+@php
+    $params = collect(explode('/register/', \Illuminate\Support\Facades\URL::current()));
+    $event = null;
+    if ($params->count() == 2){
+        $event = $params[1];
+    }
+@endphp
 @section('title', "S'inscrire")
 
 @section('style')
@@ -13,7 +19,7 @@
 @section('main')
     <section id="el-register" class="el-center-box">
         <div class="el-content-area">
-            <form method="post" action="{{ route('register.auth') }}">
+            <form method="post" action="{{ route('register.auth', ['event' => $event]) }}">
                 @csrf
                 {{--@method($event->exists ? 'put' : 'post')--}}
                 <h2>S'inscrire à Last Level Event</h2>
@@ -94,7 +100,11 @@
                 </div>
                 <button class="el-btn">S'inscrire</button>
                 <p>En cliquant sur "S'inscrire", vous acceptez les <a href="">termes &amp; conditions</a> d'Events et avoir lu les <a href="#">Politique de confidentialité</a>.</p><hr>
-                <p>Vous avez déjà un de compte ? <a href="{{ route('login.page') }}">Se connecter</a></p>
+                @if($event != null)
+                    <p>Vous avez déjà un de compte ? <a href="{{ route('login.page', ['event' => $event]) }}">Se connecter</a></p>
+                @else
+                    <p>Vous avez déjà un de compte ? <a href="{{ route('login.page') }}">Se connecter</a></p>
+                @endif
             </form>
         </div>
     </section>

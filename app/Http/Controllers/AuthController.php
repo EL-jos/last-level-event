@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Event;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use function Webmozart\Assert\Tests\StaticAnalysis\null;
 
 class AuthController extends Controller
 {
@@ -15,9 +17,10 @@ class AuthController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param Event $event = null
      * @return \Illuminate\Http\Response
      */
-    public function register(Request $request){
+    public function register(Request $request, Event $event = null){
 
         $validators = Validator::make($request->all(), [
             'username' => 'required|min:3|unique:users',
@@ -50,7 +53,10 @@ class AuthController extends Controller
                 'username' => $data['username'],
                 'email' => $data['email']
             ]));
-            return redirect()->back()->with('success', "Félicitations pour la création de votre compte ! Veuillez consulter votre boîte de réception et activer votre compte en cliquant sur le lien d'activation qui vous a été envoyé par e-mail. Profitez de toutes les fonctionnalités de notre site une fois votre compte activé. Bienvenue parmi nous !");
+            if($event != null){
+                return redirect()->route('login.page', ['event' => $event])->with('success', "Félicitations pour la création de votre compte ! Veuillez consulter votre boîte de réception et activer votre compte en cliquant sur le lien d'activation qui vous a été envoyé par e-mail. Profitez de toutes les fonctionnalités de notre site une fois votre compte activé. Bienvenue parmi nous !");
+            }
+            return redirect()->route('login.page')->with('success', "Félicitations pour la création de votre compte ! Veuillez consulter votre boîte de réception et activer votre compte en cliquant sur le lien d'activation qui vous a été envoyé par e-mail. Profitez de toutes les fonctionnalités de notre site une fois votre compte activé. Bienvenue parmi nous !");
         }else{
             dd('erreur');
         }
@@ -60,9 +66,11 @@ class AuthController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param Event $event = null
      * @return \Illuminate\Http\Response
      */
-    public function login(Request  $request){
+    public function login(Request  $request, Event $event = null){
+
         $validators = Validator::make($request->all(), [
             'email' => 'required|email:rfc,dns|exists:users,email',
             'password' => 'required|min:6',
@@ -71,6 +79,7 @@ class AuthController extends Controller
         if($validators->fails()){
             return back()->withErrors($errors)->withInput();
         }
+
         $data = $request->all();
         $user = User::where('email', '=', $data['email'])->first();
         if($user != null){
@@ -83,26 +92,44 @@ class AuthController extends Controller
                         'username' => $user->username,
                         'email' => $data['email']
                     ]));
+                    if ($event != null){
+                        return redirect()->route('event.details.page', ['event' => $event->id])->with('success', "Connexion réussie. Bienvenue !");
+                    }
                     return redirect()->route('home.page')->with('success', "Connexion réussie. Bienvenue !");
                 }else{
-                    return redirect()->route('login.page')->with('info', "Votre compte n'est pas actif. Veuillez vérifier votre boîte de réception pour activer votre compte en cliquant sur le lien d'activation qui vous a été envoyé par e-mail. Si vous avez des questions, veuillez contacter notre équipe d'assistance. Merci !");
+                    if ($event != null){
+                        return redirect()->route('login.page', ['event' => $event->id])->with('info', "Votre compte n'est pas actif. Veuillez vérifier votre boîte de réception pour activer votre compte en cliquant sur le lien d'activation qui vous a été envoyé par e-mail. Si vous avez des questions, veuillez contacter notre équipe d'assistance. Merci !")->withInput();
+                    }
+                    return redirect()->route('login.page')->with('info', "Votre compte n'est pas actif. Veuillez vérifier votre boîte de réception pour activer votre compte en cliquant sur le lien d'activation qui vous a été envoyé par e-mail. Si vous avez des questions, veuillez contacter notre équipe d'assistance. Merci !")->withInput();
                 }
 
             }else{
+
+                if ($event != null){
+                    return redirect()->route('login.page', ['event' => $event->id])->with('error', "Les identifiants saisis sont incorrects.")->withInput();
+                }
                 return redirect()->route('login.page')->with('error', "Les identifiants saisis sont incorrects.")->withInput();
             }
 
         }else{
+            if ($event != null){
+                return redirect()->route('login.page', ['event' => $event->id])->with('error', "Les identifiants saisis sont incorrects.")->withInput();
+            }
             return redirect()->route('login.page')->with('error', "Les identifiants saisis sont incorrects.")->withInput();
         }
     }
 
     /**
      * @param User $user
+     * @param Event $event = null
      */
-    public function activeAccount(User $user){
+    public function activeAccount(User $user, Event $event = null){
+
         $user->is_active = true;
         if($user->save()){
+            if ($event != null){
+                return redirect()->route('login.page', ['event' => $event->id])->with('success', "Votre compte a été activé avec succès ! Vous pouvez maintenant vous connecter et profiter de toutes les fonctionnalités de notre site. Bienvenue !");
+            }
             return redirect()->route('login.page')->with('success', "Votre compte a été activé avec succès ! Vous pouvez maintenant vous connecter et profiter de toutes les fonctionnalités de notre site. Bienvenue !");
         }else{
             return redirect()->route('home.page')->with('error', "Désolé, un problème est survenu lors de l'activation de votre compte. Veuillez contacter notre équipe d'assistance pour obtenir de l'aide. Nous nous excusons pour les désagréments occasionnés.");

@@ -88,7 +88,7 @@ class SaleController extends Controller
             }
 
         }else{
-            return redirect()->route('login.page')->with('warning', "Pour profiter pleinement de notre plateforme et accéder à toutes ses fonctionnalités, veuillez vous connecter à votre compte.");
+            return redirect()->route('login.page', ['event' => $request->input('event_id')])->with('warning', "Pour profiter pleinement de notre plateforme et accéder à toutes ses fonctionnalités, veuillez vous connecter à votre compte.");
         }
     }
 

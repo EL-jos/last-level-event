@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
     @yield('style')
 </head>
-<body @class(['el-identification' => in_array(Request::path(), $routesBGWhite)])>
+<body @class(['el-identification' => in_array(explode('/',Request::path())[0], $routesBGWhite)])>
 <header id="el-header-page" class="el-center-box">
     <div class="el-content-area">
         <ul>
