@@ -26,6 +26,7 @@ class AuthController extends Controller
             'email' => 'required|email:rfc,dns|unique:users',
             'phone' => 'required|regex:/^\+243[ _-]?([0-9]{3}[ _-]?){3}$/',
             'address' => 'required|min:10',
+            'sex_id' => 'required|numeric|min:1|max:2',
             'mdp' => 'required|min:6|required_with:mdp_confirmation|confirmed',
             'mdp_confirmation' => 'required|min:6|same:mdp_confirmation',
         ]);
@@ -41,7 +42,7 @@ class AuthController extends Controller
         }
 
         $data['password'] = password_hash($data['mdp'], PASSWORD_DEFAULT);
-
+        //dd($data);
         $user = User::create($data);
         if($user != null){
             session()->put('user', collect([

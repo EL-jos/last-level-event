@@ -27,6 +27,7 @@ class User extends Authenticatable
         'phone',
         'password',
         'address',
+        'sex_id'
     ];
 
     /**
@@ -62,5 +63,9 @@ class User extends Authenticatable
             // Logique à exécuter après l'insertion du modèle
             $user->notify(new RequestRegister($user));
         });
+    }
+
+    public function sex(){
+        return $this->belongsTo(Sex::class);
     }
 }

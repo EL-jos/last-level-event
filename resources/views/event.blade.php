@@ -5,6 +5,7 @@
     $dateString = date('d/m/Y', strtotime($event->date));
     $timeString = date('H:i', strtotime($event->time));
     $filename = explode('/', $event->image->path_large)[1];
+
     /*$date = Carbon::createFromFormat('d/m/Y', $dateString);
     $formattedDate = $date->isoFormat('dddd D, MMM. YYYY, HH:mm');*/
 @endphp

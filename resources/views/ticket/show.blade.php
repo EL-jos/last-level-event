@@ -30,125 +30,92 @@
              padding: 0;
              margin: 0;
              font-family: var(--font-text) !important;
-         }body{
-              background-color: #f1f2f4;
+        }body{
+            background-color: #f1f2f4;
             display: flex;
-           align-items: center;
+            align-items: center;
             flex-direction: column;
             gap: 1rem;
-          }#el-ticket{
-               padding: 1rem;
-               background-color: #fff;
-               max-width: 800px;
-               width: 100%;
-               display: flex;
-               align-items: center;
-               position: relative;
-               overflow: hidden;
-           }.el-identity{
-                background-color: rgba(47, 47, 111, .1);
-                list-style: none;
-                padding: 1rem;
-                display: flex;
-                flex-direction: column;
-                gap: 1rem;
-                width: 200px;
-                min-width: 200px;
-                border-radius: var(--border-radius);
-            }.el-identity li{
-                 color: #68686d;
-                 display: flex;
-                 flex-direction: column;
-                 gap: .25rem;
-             }.el-identity h3{
-                  color: #1a1a1a;
-                  font-size: 16px;
-              }.el-identity p{
-                   font-size: 12.5px;
-               }#qrcode{
-                    width: 100px;
-                    height: 100px;
-                }.el-content{
-                     width: 100%;
-                     display: flex;
-                     flex-direction: column;
-                     align-items: center;
-                     gap: .5rem;
-                 }.el-content h1{
-                      width: fit-content;
-                      font-size: 24px;
-                      color: #1a1a1a;
-                      font-weight: bold;
-                  }.el-content p{
-                       width: fit-content;
-                       font-size: 15px;
-                       color: var(--blue);
-                       font-weight: bold;
-                   }span{
-                        position: absolute;
-                        border-radius: 50%;
-                    }span:nth-child(1){
-                         background-image: linear-gradient(135deg, rgba(223, 66, 177, .2), transparent, transparent);
-                         width: 100px;
-                         height: 100px;
-                         top: 70%;
-                         right: 100px;
-                     }span:nth-child(2){
-                          background-image: linear-gradient(135deg, rgba(223, 66, 177, .2), rgba(80, 90, 221, .2));
-                          width: 50px;
-                          height: 50px;
-                          top: 5%;
-                          right: 220px;
-                      }span:nth-child(3){
-                           background-image: linear-gradient(135deg, rgba(80, 90, 221, .2), transparent);
-                           width: 150px;
-                           height: 150px;
-                           top: 5%;
-                           left: 320px;
-                       }aside{
-                            top: 26%;
-                            transform: rotate(45deg) translate(-50%, -50%);
-                            background: #1a1a1a;
-                            color: var(--warning);
-                            width: 100px;
-                            position: absolute;
-                            text-align: center;
-                            right: -7%;
-                        }button{
-                             background: var(--blue);
-                             padding: .5rem 1rem;
-                             width: fit-content;
-                             border-radius: var(--border-radius);
-                             box-shadow: 0 8px 10px rgba(0, 0, 0, .1);
-                             color: #f2f2f2;
-                             text-decoration: none;
-                            outline: none;
-                            border: none;
-                            cursor: pointer;
-                         }
+        }#el-ticket{
+            padding: 1rem;
+            background-color: #fff;
+            max-width: 350px;
+            min-width: 350px;
+            width: 100%;
+            aspect-ratio: 3/4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }.el-group-block{
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
+            gap: 1rem;
+        }.el-block{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: .25rem;
+            width: fit-content;
+        }.el-title{
+            width: 100%;
+            color: #1a1a1a;
+            font-size: 20px;
+        }label{
+            color: #1a1a1a;
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: bold;
+        }p{
+            color: #68686d;
+            font-size: 16px;
+        }aside{
+            color: #1a1a1a;
+            font-size: 24px;
+        }#qrcode{
+            margin-top: auto;
+        }button{
+            background: var(--blue);
+            padding: .5rem 1rem;
+            width: fit-content;
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 10px rgba(0, 0, 0, .1);
+            color: #f2f2f2;
+            text-decoration: none;
+            outline: none;
+            border: none;
+            cursor: pointer;
+        }
     </style>
     <script src="{{ asset('js/qrcode.min.js')}}"></script>
 </head>
 <body>
 <section id="el-ticket">
-    <ul class="el-identity">
-        <li>
-            <h3>Date et heure:</h3>
-            <p>Le {{ date('d/m/Y', strtotime($sale->event->date)) }} à {{ date('H:i', strtotime($sale->event->time)) }}</p>
-        </li>
-        <li>
-            <h3>Durée:</h3>
-            <p>{{ $sale->event->duration }} heure</p>
-        </li>
-        <li>
-            <h3>Adresse:</h3>
-            <p>{{ $sale->event->location }}</p>
-        </li>
-    </ul>
-    <article class="el-content">
+    <div class="el-block el-title">
         <h1>{{ $sale->event->title }}</h1>
-        <p>{{ $sale->event->organiser->name }}</p>
-    </article>
+    </div>
+    <div class="el-group-block">
+        <div class="el-block">
+            <label>Date et heure</label>
+            <p>Le {{ date('d/m/Y', strtotime($sale->event->date)) }} à {{ date('H:i', strtotime($sale->event->time)) }}</p>
+        </div>
+        <div class="el-block">
+            <label>Durée:</label>
+            <p>{{ $sale->event->duration }} heure</p>
+        </div>
+    </div>
+    <div class="el-group-block">
+        <div class="el-block">
+            <label>Adresse:</label>
+            <p>{{ $sale->event->location }}</p>
+        </div>
+        <div class="el-block">
+            <label>Participant</label>
+            <p>{{ $sale->user->lastname . ' ' . $sale->user->name }}</p>
+        </div>
+    </div>
     <article id="qrcode"></article>
     @if($sale->type->id == 2)
         <aside>V.I.P</aside>
@@ -187,8 +154,8 @@
 <script>
 
     var qrcode = new QRCode(document.getElementById("qrcode"), {
-        width : 100,
-        height : 100
+        width : 150,
+        height : 150
     });
     qrcode.makeCode('{{ route('check.sale', $sale) }}');
 </script>

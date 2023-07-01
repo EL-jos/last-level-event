@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\ContactFormMail;
 use App\Models\Category;
 use App\Models\Event;
+use App\Models\Sex;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -44,7 +45,9 @@ class PageController extends Controller
     }
 
     public function register(){
-        return view('register');
+        return view('register', [
+            'sexes' => Sex::all()
+        ]);
     }
 
     public function login(){

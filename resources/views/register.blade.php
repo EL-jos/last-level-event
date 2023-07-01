@@ -81,6 +81,17 @@
                         <input type="password" id="mdp_confirmation" name="mdp_confirmation" />
                     </div>
                 </div>
+                <div class="el-ligne el-radio">
+                    @foreach($sexes as $sex)
+                        <div class="el-colonne">
+                            <label for="sex-{{ $sex->id }}">{{ $sex->name }}</label>
+                            <input type="radio" name="sex_id" id="sex-{{ $sex->id }}" value="{{ $sex->id }}">
+                            @error('sex_id')
+                            <div class="el-error">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    @endforeach
+                </div>
                 <button class="el-btn">S'inscrire</button>
                 <p>En cliquant sur "S'inscrire", vous acceptez les <a href="">termes &amp; conditions</a> d'Events et avoir lu les <a href="#">Politique de confidentialité</a>.</p><hr>
                 <p>Vous avez déjà un de compte ? <a href="{{ route('login.page') }}">Se connecter</a></p>

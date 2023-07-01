@@ -549,7 +549,13 @@ form .el-ligne{
       font-size: calc(var(--font-size-text) * 1.1);
       border-radius: 5px;
        resize: vertical;
-   }form textarea{
+   }form .el-radio input{
+        width: 15px;
+        height: 15px;
+    }form .el-radio .el-colonne{
+         width: fit-content;
+         gap: .25rem;
+     }form textarea{
         min-height: 100px;
     }form label,
    form h2,
