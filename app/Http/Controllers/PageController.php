@@ -24,11 +24,26 @@ class PageController extends Controller
         return view('about');
     }
 
-    public function category(Category $category){
+    public function category($ids){
+        $queryParams = [];
+        parse_str($ids, $queryParams);
+
+        $ids = $queryParams['ids'];
+        $events = Event::whereHas('categories', function ($query) use ($ids) {
+            $query->whereIn('categories.id', $ids);
+        })->with(['categories' => function ($query) use ($ids) {
+            $query->whereIn('categories.id', $ids);
+        }])->get();
+
+        $categoryNames = $events->flatMap(function ($event) {
+            return $event->categories->pluck('name');
+        });
+
+        $categoryNames = $categoryNames->unique();
 
         return view('category', [
-            'events' => $category->events,
-            'category' => $category
+            'events' => $events,
+            'categories' => $categoryNames
         ]);
     }
 

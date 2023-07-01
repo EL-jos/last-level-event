@@ -39,15 +39,20 @@
                 </button>
             </li>
             <li class="el-logo">
-                <a href=" {{ route('home.page') }} "> Last Level Event </a>
+                <!-- <a href=" {{ route('home.page') }} "> Last Level Event </a> -->
+                <a href=" {{ route('home.page') }} ">
+                    <img src="{{ asset('assets/svg/logo.svg') }}" alt="" />
+                </a>
             </li>
             <li class="el-menu-desktop">
                 <nav>
+
+                    <p>{{ $navbar }}</p>
                     <ul>
-                        <li><a href="{{ route('category.page', 7) }}">Théatre & Humour</a></li>
-                        <li><a href="{{ route('category.page', 8) }}">Concerts & Festival</a></li>
-                        <li><a href="{{ route('category.page', 9) }}">Famille & loisirs</a></li>
-                        <li><a href="{{ route('category.page', 10) }}">Sport</a></li>
+                        <li><a href="{{ route('category.page', http_build_query(['ids' => [20, 21]])) }}">Théatre & Humour</a></li>
+                        <li><a href="{{ route('category.page', http_build_query(['ids' => [13, 36]])) }}">Concerts & Festival</a></li>
+                        <li><a href="{{ route('category.page', http_build_query(['ids' => [27, 37]])) }}">Famille & loisirs</a></li>
+                        <li><a href="{{ route('category.page', http_build_query(['ids' => [38]])) }}">Sport</a></li>
                     </ul>
                 </nav>
             </li>
@@ -118,21 +123,21 @@
 <div id="el-container-menu-phone">
     <div class="el-content-area">
         <header>
-            <a href="{{ route('home.page') }}"><img src="https://source.unsplash.com/150x70/?logo" alt=""></a>
+
             <button onclick="onCloseMenu()" class="el-btn" id="el-close-menu-phone"><i class="fas fa-times"></i></button>
         </header>
         <main>
             <ul>
-                <li><a href="{{ route('category.page', 7) }}">Théatre & Humour</a></li>
-                <li><a href="{{ route('category.page', 7) }}">Concerts & Festival</a></li>
-                <li><a href="{{ route('category.page', 7) }}">Famille & loisirs</a></li>
-                <li><a href="{{ route('category.page', 7) }}">Sport</a></li>
+                <li><a href="{{ route('category.page', http_build_query(['ids' => [20, 21]])) }}">Théatre & Humour</a></li>
+                <li><a href="{{ route('category.page', http_build_query(['ids' => [13, 36]])) }}">Concerts & Festival</a></li>
+                <li><a href="{{ route('category.page', http_build_query(['ids' => [27, 37]])) }}">Famille & loisirs</a></li>
+                <li><a href="{{ route('category.page', http_build_query(['ids' => [38]])) }}">Sport</a></li>
             </ul>
         </main>
         <ul class="el-social-links">
             <li><a href="{{ route('register.page') }}" class="el-btn el-center-box"><i class="fas fa-user-plus"></i></a></li>
-            <li><a href="" class="el-btn el-center-box"><i class="fas fa-shopping-bag"></i></a></li>
-            <li><a href="" class="el-btn el-center-box"><i class="fas fa-sun"></i></a></li>
+            <!--<li><a href="" class="el-btn el-center-box"><i class="fas fa-shopping-bag"></i></a></li>
+            <li><a href="" class="el-btn el-center-box"><i class="fas fa-sun"></i></a></li>-->
         </ul>
         <ul class="el-reseaux-sociaux">
             <li><a href="https://www.facebook.com" target="_blank" class="el-center-box"><i class="fab fa-facebook-f"></i></a></li>

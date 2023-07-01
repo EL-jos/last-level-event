@@ -1,11 +1,27 @@
 @extends('base')
-@section('title', $category->name)
+@php
+
+    $lenght = $categories->count();
+@endphp
+@section('title', 'Recherche')
 @section('main')
     <section id="el-breadcrumb" class="el-center-box">
         <div class="el-content-area">
             <div class="el-grid">
                 <a href="{{ route('home.page') }}">Accueil /</a>
-                <span>{{ $category->name }}</span>
+                @foreach($categories as $category)
+
+                    @if($lenght > 1)
+                        @if($loop->index == ($lenght - 1))
+                            <span>{{ $category }} /</span>
+                        @else
+                            <span>{{ $category }} | |</span>
+                        @endif
+                    @else
+                        <span>{{ $category }}</span>
+                    @endif
+
+                @endforeach
             </div>
         </div>
     </section>
@@ -35,7 +51,7 @@
                         </div>
                     </a>
                 @empty
-                    <p>Pas d'événement disponible pour cette catégorie.</p>
+                    <p style="color: #fff; font-size: var(--font-size-text); font-family: var(--font-text) !important; line-height: var(--line-height-text)">Pas d'événement disponible pour cette catégorie.</p>
                 @endforelse
             </div>
         </div>
