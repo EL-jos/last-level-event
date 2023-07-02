@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\ContactFormMail;
 use App\Models\Category;
+use App\Models\City;
 use App\Models\Event;
 use App\Models\Sex;
 use App\Models\Type;
@@ -62,7 +63,8 @@ class PageController extends Controller
     public function register(Event $event = null){
 
         return view('register', [
-            'sexes' => Sex::all()
+            'sexes' => Sex::all(),
+            'cities' => City::all()
         ]);
     }
 

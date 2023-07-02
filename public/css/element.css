@@ -533,7 +533,9 @@ form .el-ligne{
      flex-direction: column;
      gap: .5rem;
      width: 100%;
- }form input,
+ }.full .ts-control {
+       background-color: #f9f9f9 !important;
+  }form input,
   form select,
   form textarea{
       display: block;

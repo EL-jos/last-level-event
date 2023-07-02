@@ -30,6 +30,7 @@ class AuthController extends Controller
             'phone' => 'required|regex:/^\+243[ _-]?([0-9]{3}[ _-]?){3}$/',
             'address' => 'required|min:10',
             'sex_id' => 'required|numeric|min:1|max:2',
+            'city_id' => 'required|numeric|min:1|max:69',
             'mdp' => 'required|min:6|required_with:mdp_confirmation|confirmed',
             'mdp_confirmation' => 'required|min:6|same:mdp_confirmation',
         ]);

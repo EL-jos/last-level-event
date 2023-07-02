@@ -28,7 +28,8 @@ class User extends Authenticatable
         'phone',
         'password',
         'address',
-        'sex_id'
+        'sex_id',
+        'city_id'
     ];
 
     /**
@@ -70,5 +71,9 @@ class User extends Authenticatable
 
     public function sex(){
         return $this->belongsTo(Sex::class);
+    }
+
+    public function city(){
+        return $this->belongsTo(City::class);
     }
 }

@@ -15,6 +15,8 @@
             display: none;
         }
     </style>
+    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
 @endsection
 @section('main')
     <section id="el-register" class="el-center-box">
@@ -50,6 +52,15 @@
                     </div>
                 </div>
                 <div class="el-ligne">
+                    <div class="el-colonne el-one">
+                        <label for="address">Adresse</label>
+                        <input type="text" id="address" name="address" value="{{ old('address') }}" />
+                        @error('address')
+                        <div class="el-error">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="el-ligne">
                     <div class="el-colonne">
                         <label for="email">E-mail</label>
                         <input type="text" id="email" name="email" value="{{ old('email') }}" />
@@ -67,10 +78,14 @@
                 </div>
                 <div class="el-ligne">
                     <div class="el-colonne el-one">
-                        <label for="address">Adresse</label>
-                        <input type="text" id="address" name="address" value="{{ old('address') }}" />
-                        @error('address')
-                        <div class="el-error">{{ $message }}</div>
+                        <label for="city_id">Ville</label>
+                        <select id="city_id" name="city_id">
+                            @foreach($cities as $city)
+                                <option @if(old('ville_id') == $city->id) selected @endif value="{{ $city->id }}">{{ $city->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('ville_id')
+                            <div class="el-error">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
@@ -177,5 +192,14 @@
             });
 
         });
+    </script>
+    <script>
+
+        new TomSelect("select",{
+            persist: false,
+            createOnBlur: true,
+            create: true
+        });
+
     </script>
 @endsection
