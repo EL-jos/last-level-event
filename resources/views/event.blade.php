@@ -14,22 +14,16 @@
 
 @section('description', strip_tags($event->description))
 
-@section('seo')
-    <link rel="canonical" href="{{ route('home.page') }}">
+@section('og_title', $event->title)
+@section('og_description', strip_tags($event->description))
+@section('og_image', route('show.image', ['path' => $filename, 'w' => 1200, 'h' => 630]))
+@section('og_type', 'article')
 
-    <meta name="robots" content="index, follow">
-    <meta property="og:title" content="{{ $event->title }}">
-    <meta property="og:description" content="{{ strip_tags($event->description) }}">
-    <meta property="og:image" content="{{ route('show.image', ['path' => $filename, 'w' => 1200, 'h' => 630]) }}">
-    <meta property="og:url" content="{{ \Illuminate\Support\Facades\URL::current() }}">
-    <meta property="og:type" content="article">
 
-    <meta name="twitter:title" content="{{ $event->title }}">
-    <meta name="twitter:description" content="{{ strip_tags($event->description) }}">
-    <meta name="twitter:creator" content="@lastlevelevent">
-    <meta name="twitter:image" content="{{ route('show.image', ['path' => $filename, 'w' => 500, 'h' => 500]) }}">
-    <meta name="twitter:url" content="{{ \Illuminate\Support\Facades\URL::current() }}">
-@endsection
+@section('twitter_title', $event->title)
+@section('twitter_description', strip_tags($event->description))
+@section('twitter_image', route('show.image', ['path' => $filename, 'w' => 500, 'h' => 500]))
+
 @section('style')
     <!-- FLIPDOWN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flipdown@0.3.2/dist/flipdown.min.css">

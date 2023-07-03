@@ -10,8 +10,22 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--SEO -->
-    <meta name="description" content="@yield('description', 'Description par défaut')">
-    @yield('seo')
+    <meta name="description" content="@yield('description', "Last Level Event est une société spécialisée dans la vente en ligne de tickets pour les événements. Découvrez une large sélection de concerts, spectacles, festivals et bien plus encore. Réservez vos places en toute simplicité et profitez d'une expérience unique. Ne manquez pas les événements les plus populaires et vivez des moments inoubliables avec Last Level Event.")">
+    <link rel="canonical" href="{{ route('home.page') }}">
+
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="@yield('og_title', 'Last Level Event')">
+    <meta property="og:description" content="@yield('og_description',"Last Level Event est une société spécialisée dans la vente en ligne de tickets pour les événements. Découvrez une large sélection de concerts, spectacles, festivals et bien plus encore. Réservez vos places en toute simplicité et profitez d'une expérience unique. Ne manquez pas les événements les plus populaires et vivez des moments inoubliables avec Last Level Event.")">
+    <meta property="og:image" content="@yield('og_image', asset('events/logo_fb.png'))">
+    <meta property="og:url" content="@yield('og_url', \Illuminate\Support\Facades\URL::current())">
+    <meta property="og:type" content="@yield('og_type', "website")">
+
+    <meta property="twitter:title" content="@yield('twitter_title', 'Last Level Event')">
+    <meta property="twitter:description" content="@yield('twitter_description',"Last Level Event est une société spécialisée dans la vente en ligne de tickets pour les événements. Découvrez une large sélection de concerts, spectacles, festivals et bien plus encore. Réservez vos places en toute simplicité et profitez d'une expérience unique. Ne manquez pas les événements les plus populaires et vivez des moments inoubliables avec Last Level Event.")">
+    <meta property="twitter:image" content="@yield('twitter_image', asset('events/logo_fb.png'))">
+    <meta property="twitter:url" content="@yield('twitter_url', \Illuminate\Support\Facades\URL::current())">
+    <meta name="twitter:creator" content="@lastlevelevent">
+
     <!-- JQUERY UI -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <!-- OWL CAROUSEL -->
