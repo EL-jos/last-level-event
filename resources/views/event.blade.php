@@ -1,11 +1,13 @@
 @extends('base')
 @php
+    use Carbon\Carbon;
 
     $lenght = $event->categories->count();
     $dateString = date('d/m/Y', strtotime($event->date));
     $timeString = date('H:i', strtotime($event->time));
     $filename = explode('/', $event->image->path_large)[1];
 
+    $date = Carbon::parse($event->date);
     /*$date = Carbon::createFromFormat('d/m/Y', $dateString);
     $formattedDate = $date->isoFormat('dddd D, MMM. YYYY, HH:mm');*/
 @endphp
@@ -28,6 +30,14 @@
     <!-- FLIPDOWN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flipdown@0.3.2/dist/flipdown.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flipdown@0.3.2/src/flipdown.min.js"></script>
+    <!-- LEAFLET -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+    <style>
+        #map {
+            height: 400px;
+        }
+    </style>
 @endsection
 
 @section('main')
@@ -99,9 +109,11 @@
                             </div>
                         </div>
                         <div class="el-controls-btn">
-                            <button onclick="onOpenFormAchatTicket()" class="el-btn el-vip">
-                                Acheter le ticket !
-                            </button>
+                            @if((!$date->isPast() || !$date->isToday()) && $date->isFuture())
+                                <button onclick="onOpenFormAchatTicket()" class="el-btn el-vip">
+                                    Acheter le ticket !
+                                </button>
+                            @endif
                             {{--<a href="" class="el-btn">
                                 Acheter le ticket Standard
                             </a>--}}
@@ -112,6 +124,16 @@
                     <header>À propos de cet évènement</header>
                     <main class="el-descriptif">
                         {!! $event->description !!}
+                    </main>
+                </div>
+                <div class="el-contentainer">
+                    <header>Géo-localisation</header>
+                    <main>
+                        <div id="map"></div>
+                        <div class="el-controls-btn">
+                            <button id="itineraire-btn" class="el-btn" style="background: var(--info); color: #fff">Voir l'itinéraire</button>
+                        </div>
+
                     </main>
                 </div>
             </div>
@@ -302,5 +324,78 @@
                 price.textContent = (`${parseInt( {{ $event->prices()->where('type_id', '=', 2)->first()->amount }} ) * quantity} $`);
             }
         }
+    </script>
+    <script src="{{ asset('js/leaflet.js') }}"></script>
+    <script src="{{ asset('js/Control.Geocoder.js') }}"></script>
+    <script src="{{ asset('js/unpkg.com_leaflet-routing-machine@3.2.12_dist_leaflet-routing-machine.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var address = "{{ $event->location }}";
+            var itineraireBtn = document.getElementById('itineraire-btn');
+            var map = L.map('map').setView([0, 0], 13);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+                maxZoom: 18,
+            }).addTo(map);
+
+            var geocoder = L.Control.Geocoder.nominatim();
+            var routingControl;
+
+            geocoder.geocode(address, function(results) {
+                if (results.length > 0) {
+                    var latlng = results[0].center;
+
+                    L.marker(latlng).addTo(map).bindPopup(address).openPopup();
+                    map.setView(latlng, 13);
+
+                    // Récupérer la position actuelle du navigateur de l'utilisateur
+                    function getCurrentLocation() {
+                        if (navigator.geolocation) {
+                            itineraireBtn.disabled = true; // Désactiver le bouton pendant le traitement
+
+                            navigator.geolocation.getCurrentPosition(function(position) {
+                                var currentLatLng = {
+                                    lat: position.coords.latitude,
+                                    lng: position.coords.longitude
+                                };
+
+                                try {
+                                    // Créer l'itinéraire
+                                    routingControl = L.Routing.control({
+                                        waypoints: [
+                                            L.latLng(currentLatLng.lat, currentLatLng.lng),
+                                            L.latLng(latlng.lat, latlng.lng)
+                                        ],
+                                        routeWhileDragging: true,
+                                        language: 'fr', // Définir la langue des instructions en français
+                                    }).addTo(map);
+
+                                    routingControl.on('routesfound', function() {
+                                        itineraireBtn.disabled = false; // Réactiver le bouton en cas de succès
+                                    });
+                                } catch (error) {
+                                    alert("Erreur lors de la création de l'itinéraire :\n" + error.message);
+                                    itineraireBtn.disabled = false; // Réactiver le bouton en cas d'erreur
+                                }
+                            }, function(error) {
+                                alert("Erreur lors de la récupération de la position actuelle :\n" + error.message);
+                                itineraireBtn.disabled = false; // Réactiver le bouton en cas d'erreur
+                            });
+                        } else {
+                            alert("La géolocalisation n'est pas prise en charge par ce navigateur.");
+                        }
+                    }
+
+                    // Gérer le clic sur le bouton "Voir l'itinéraire"
+                    itineraireBtn.addEventListener('click', getCurrentLocation);
+                } else {
+                    container.removeChild(mapContainer);
+                    alert("Aucun résultat de géocodage trouvé pour l'adresse spécifiée.");
+                }
+            }, function(error) {
+                alert("Erreur lors du géocodage de l'adresse :\n" + error.message);
+            });
+        });
     </script>
 @endsection

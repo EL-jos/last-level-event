@@ -46,7 +46,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 2rem;
+            gap: 1rem;
         }.el-group-block{
             display: flex;
             justify-content: space-between;
@@ -93,6 +93,7 @@
 </head>
 <body>
 <section id="el-ticket">
+    <img src="{{ asset('assets/svg/logo.svg') }}" width="50px" />
     <div class="el-block el-title">
         <h1>{{ $sale->event->title }}</h1>
     </div>
@@ -154,8 +155,8 @@
 <script>
 
     var qrcode = new QRCode(document.getElementById("qrcode"), {
-        width : 150,
-        height : 150
+        width : 100,
+        height : 100
     });
     qrcode.makeCode('{{ route('check.sale', $sale) }}');
 </script>

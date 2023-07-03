@@ -4,12 +4,24 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-36E7WHHR9F"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
+        gtag('config', 'G-36E7WHHR9F');
+    </script>
     <title>@yield('title', 'Last Level Event')</title>
     <meta charset="UTF-8">
-
+    <!-- FAVICON -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon_io/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon_io/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon_io/favicon-16x16.png') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--SEO -->
+    <meta name="keywords" content="vente de billets en ligne, billets d'événements, achat de tickets, événements en direct, billetterie en ligne, réservation de billets, spectacles, concerts, festivals, théâtre, sports, musique, divertissement, événements populaires, événements locaux, réserver des places, billets discount">
     <meta name="description" content="@yield('description', "Last Level Event est une société spécialisée dans la vente en ligne de tickets pour les événements. Découvrez une large sélection de concerts, spectacles, festivals et bien plus encore. Réservez vos places en toute simplicité et profitez d'une expérience unique. Ne manquez pas les événements les plus populaires et vivez des moments inoubliables avec Last Level Event.")">
     <link rel="canonical" href="{{ route('home.page') }}">
 
