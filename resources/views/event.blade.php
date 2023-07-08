@@ -390,7 +390,6 @@
                     // Gérer le clic sur le bouton "Voir l'itinéraire"
                     itineraireBtn.addEventListener('click', getCurrentLocation);
                 } else {
-                    container.removeChild(mapContainer);
                     alert("Aucun résultat de géocodage trouvé pour l'adresse spécifiée.");
                 }
             }, function(error) {
